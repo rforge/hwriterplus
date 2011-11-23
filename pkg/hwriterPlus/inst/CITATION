@@ -1,0 +1,21 @@
+citHeader("To cite package 'hwriterPlus' in publications use:")
+
+     ## R >= 2.8.0 passes package metadata to citation().
+     if(!exists("meta") || is.null(meta)) {
+       meta <- packageDescription("hwriterPlus")
+     }
+
+     year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+     vers <- paste("R package version", meta$Version)
+
+     citEntry(entry="Manual",
+              title = "hwriterPlus: Extending the hwriter Package",
+              author = personList(as.person("David J. Scott")),
+              year = year,
+              note = vers,
+
+              textVersion =
+              paste("David J. Scott, (",
+                    year,
+                    "). hwriterPlus: Extending the hwriter Package. ",
+                    vers, ".", sep=""))

@@ -1,0 +1,15 @@
+Package: hwriterPlus
+Type: Package
+Title: hwriterPlus: Extending the hwriter Package
+Version: 1.0
+Date: 2011-10-27
+Author: David Scott <d.scott@auckland.ac.nz>
+Maintainer: David Scott <d.scott@auckland.ac.nz>
+Depends: R (>= 2.10.0), hwriter, TeachingDemos
+Suggests: xtable
+Description: This extends the package hwriter providing facilities
+	     such as the inclusion of output from R, the results of an
+	     R session and the display of mathematical expressions using
+	     LaTeX notation.
+License: GPL (>= 2)
+LazyLoad: yes

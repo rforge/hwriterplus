@@ -1,0 +1,3 @@
+Instead of using TeachingDemos to capture output and sessions,
+investigate capture and texteval in Greg Warnes package sessions.
+

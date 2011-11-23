@@ -1,0 +1,530 @@
+
+R version 2.13.2 (2011-09-30)
+Copyright (C) 2011 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: i386-pc-mingw32/i386 (32-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+
+ Read .Rprofile
+> ### Browser Example
+> ### This example is intended to show all the capability of hwriterPlus
+> ### to produce an html document for display in a browser
+> ###
+> ### DJS 27/10/2011
+> date()
+[1] "Wed Nov 23 11:06:49 2011"
+> options(width=80)
+> 
+> ### Set some state variables
+> opSys <- Sys.info()["sysname"]
+> if (opSys == "Windows"){
++   linux <- FALSE
++ } else {
++   linux <- TRUE
++ }
+> 
+> reportName <- "BrowserExample.html"
+> 
+> ### Packages required
+> require(hwriterPlus)
+Loading required package: hwriterPlus
+Loading required package: hwriter
+Loading required package: TeachingDemos
+> require(Cairo)
+Loading required package: Cairo
+> require(xtable)
+Loading required package: xtable
+> require(MASS)
+Loading required package: MASS
+> require(lattice)
+Loading required package: lattice
+> 
+> hwriteLatex
+function (ltx, page = NULL, table.attributes = NULL, tr.attributes = NULL, 
+    td.attributes = NULL, ...) 
+{
+    if (is.null(page)) 
+        page = ""
+    if (!is(ltx, "latex")) 
+        ltx <- as.latex(ltx)
+    if (ltx$inline) {
+        cat(paste("`", ltx$alt, "`", sep = ""), file = page, 
+            append = TRUE, sep = " ")
+    }
+    else {
+        if (ltx$count) {
+            cat("\n<script>\n nequations = nequations+1;\n document.write(\"<a name = 'equation\"+nequations+\"'>&nbsp;</a>\")</script>\n", 
+                file = page, append = TRUE)
+        }
+        if (!is.null(ltx$label)) {
+            txt <- "\n<br /><span class = 'equation'>Equation"
+            if (ltx$count) {
+                txt <- paste(txt, "<script>document.write(nequations);</script>")
+            }
+            txt <- paste(txt, "-", ltx$label)
+            cat(txt, file = page, append = TRUE)
+        }
+        if (!ltx$count) {
+            if (is.null(table.attributes)) {
+                table.attributes <- "border = '0'"
+            }
+            cat(paste("<br /><center><table ", table.attributes, 
+                "><tr ", tr.attributes, "><td align = 'center'>`", 
+                ltx$alt, "`</td></tr></table></center><br />", 
+                sep = ""), file = page, append = TRUE)
+        }
+        else {
+            if (is.null(table.attributes)) {
+                table.attributes <- "border = '0' width = '90%'"
+            }
+            if (is.null(td.attributes)) {
+                td.attributes <- c("width = '50'", "align = 'center'", 
+                  "align = 'right' width = '50'")
+            }
+            cat(paste("\n<br /><center><table ", table.attributes, 
+                "><tr ", tr.attributes, "><td ", td.attributes[1], 
+                ">&nbsp;</td><td ", td.attributes[2], ">`", ltx$alt, 
+                "`</td><td ", td.attributes[3], "><script>document.write('('+nequations+')')</script></td></tr></table></center><br />", 
+                sep = ""), file = page, append = TRUE)
+        }
+    }
+}
+<environment: namespace:hwriterPlus>
+> 
+> ### Break function
+> br <- function(page){
++   hwrite("", page, br = TRUE)
++ }
+> ### Open file for writing
+> xmlns <- "xmlns:mml='http://www.w3.org/1998/Math/MathML'"
+> bodyAttributes <- list(onload = "translate()",
++                        bgcolor = "FFFFFF",
++                        background = "")
+> head <- '<object id="mathplayer" classid="clsid:32F66A20-7614-11D4-BD11-00104BD3F987"></object>
++ <?import namespace="mml" implementation="#mathplayer"?>'
+> p <- newPage(reportName,
++              title = "Example of a Document for Display in a Browser",
++              doctype = "",
++              xmlns = xmlns,
++              link.css = c("../css/BrowserExample.css"),
++              link.javascript = c("../javascript/ASCIIMathML.js"),
++              body.attributes = bodyAttributes,
++              head = head)
+> br(p)
+> hwrite("<span class = 'title'>
++        Example of a Document for Display in a Browser</span>",
++        p, center = TRUE, br = TRUE)
+> hwrite("<span class = 'subtitle'>
++        Dr David J Scott</span>",
++        p, center = TRUE, br = TRUE)
+> hwrite(hwrite("Entering Text", name = "intro"), p,
++        heading = 1, center = FALSE, br = TRUE)
+> hwrite("Ordinary paragraph text can be entering using
++ <font face = 'monospace' >hwrite</font>.
++ Aspects of the text such as the font family, face, size and colour can
++ be altered in line by using tags or styles.", p,
++        center = FALSE, br = TRUE)
+> br(p)
+> hwrite("For example the font can be changed to sans-serif
++ <font face = 'Arial, sans-serif'> like this, </font>
++ italic <i> like this, </i> bold <b> like this,</b> coloured
++ <font color = 'blue'> like this,</font> or any combination of these
++ <b><i><font color = 'blue'>like this.</font></i></b>", p, br = TRUE)
+> br(p)
+> 
+> hwrite("Some text variations may not be rendered appropriately as can be
++ seen in the examples above. Classes can be defined in the
++ <span class = 'pkg'>.css</span> file
++ to deal with this problem.", p, br = TRUE)
+> br(p)
+> 
+> hwrite("Incorporating Special Symbols",
++        p, heading = 1, center = FALSE, br = TRUE)
+> hwrite("Using appropriate tags and a list of symbols it is possible to
++ output mathematical and other symbols. Superscripts and subscripts are
++ also possible.", p, br = TRUE)
+> br(p)
+> hwrite("Here are some Greek letters: <math>&alpha;</math>
++ <math>&beta;</math> and &Gamma;</math>,
++ followed by some examples of superscripts and subscripts:
++ <math>&alpha;<sup>2</sup> and &beta;<sub>n</sub></math>. As examples
++ of other symbols, here are some arrows:
++ <math>&larr;</math>  and <math>&rArr;,</math> some set symbols:
++ <math>&exist;  and &cap;,</math> and some operators:
++ <math>&int;  and &prod;.</math>", p, br = TRUE)
+> br(p)
+> hwrite("More than one approach is
++ available to produce mathematical symbols.
++ Greek letters can be produced by using symbol font:
++ <font face='symbol, fantasy'>a, b, G</font>, although this may not work in some
++ browsers without the presence of additional fonts.
++ Codes can be used instead of `\\LaTeX`-like names:
++ <math>&#8592;, &#8747; and &#8719;",
++        p, br = TRUE)
+> br(p)
+> hwrite("Quotes can be incorporated by escaping with \"\\\",
++ so for example we can obtain \" and \' in the middle of some text.",
++        p, br = TRUE)
+> 
+> ### Mathematics
+> hwrite("Rendering Mathematics", p,
++        heading = 1, center = FALSE, br = TRUE)
+> hwrite("Entering more complex mathematical expressions including
++ displayed mathematical expressions is difficult.
++ One approach is to insert
++ an image produced by other means, for example by `\\LaTeX` or Word's
++ equation editor. The following expression was produced by Word's
++ equation editor then saved as a jpeg.",
++        p, br = TRUE)
+> br(p)
+> hwriteImage("DisplayedEquation.jpg", p, center = TRUE, br = TRUE)
+> #hwriteImage("AltDisplayedEquation.jpg", p, center = TRUE, br = TRUE)
+> 
+> hwrite("To enable the rendering of complex mathematical expressions
++ using `\\LaTeX` syntax, JavaScript is required, the JavaScript being
++ run when the file is loaded into the browser. The package
++ <span class = 'pkg'> R2HTML</span> uses MathPlayer to do the
++ rendering. An alternative is MathJax which is used by
++ <span class = 'pkg'> org-babel.</span> In this
++ example MathPlayer is used. This is an extension to the package
++ <span class = 'pkg'> hwriter.</span>",
++        p, br = TRUE)
+> br(p)
+> hwrite("Here is an inline expression:`\\int_{-\\infty}^{1}f(x)dx`,
++ followed by two displayed expressions, one of which is numbered and labelled. The first example also has a box around it, by assigning the value
++ <font face = 'monospace'> \"border = '1'\"</font> to the argument
++ <font face = 'monospace'> table.attributes</font>.",
++        p, br = TRUE)
+> br(p)
+> hwriteLatex(as.latex("\\int_{-\\infty}^{1}f(x)dx",
++                      inline = FALSE, count = FALSE),
++             page = p,
++             table.attributes = "border = '1'",
++             tr.attributes = "bgcolor = 'white'")
+> 
+> hwriteLatex(as.latex("\\{ 26.119 < \\sum_{i=1}^n(X_i-\\bar{X})^2\\}
++ \\bigcup\\ \\{ 5.629 > \\sum_{i=1}^n (X_i-\\bar{X})^2 \\}.",
++                      inline = FALSE, label = "equation number and label"),
++             page = p,
++             tr.attributes = "bgcolor = 'white'",
++             td.attributes = c("width = '50'", "align = 'center'",
++                               "align = 'right' width = '50'"))
+> br(p)
+> 
+> 
+> ### Images
+> hwrite("Incorporating Images", p,
++        heading = 1, center = FALSE, br = TRUE)
+> hwrite("Incorporating images is complicated by the inability of
++ different browsers to display images in different formats.
++ Firefox will not display <span class ='pkg'>.wmf</span> images for example.
++ The only scalable image format which can be displayed by all the
++ common browsers (Internet Explorer, Firefox, Safari and Chrome)
++ appears to be <span class ='pkg'>.svg</span>,
++ scalable vector graphics.",
++         p, center = FALSE, br = TRUE)
+> br(p)
+> hwrite(paste("Here is a windows metafile, <span class ='pkg'>.wmf</span> image.
++ Unfortunately this will only display in Internet Explorer, and there
++ will be no output produced at all if this example is run on linux.
++ The example is the cats data used by Leisch as an Sweave example,
++ taken from Venables and Ripley (1987).
++ The data frame contains measurements of heart and body weight
++ of ",
++              nrow(cats), " cats (",
++              sum(cats$Sex=='F')," female, ",
++              sum(cats$Sex=='F')," male).", sep = ""),
++        p, center = FALSE, br = TRUE)
+> br(p)
+> hwrite("A linear regression model of heart weight by sex and gender was
++ fitted to this data. The graph is a scatter plot of the data including
++ the regression lines",
++        p, center = FALSE, br = TRUE)
+> br(p)
+> ### Fit linear model
+> lm1 <- lm(Hwt~Bwt*Sex, data=cats)
+> lm1
+
+Call:
+lm(formula = Hwt ~ Bwt * Sex, data = cats)
+
+Coefficients:
+(Intercept)          Bwt         SexM     Bwt:SexM  
+      2.981        2.636       -4.165        1.676  
+
+> lattice.options(theme = "col.whitebg")
+> ### Draw graph
+> if (!linux) {
++   win.metafile("cats.wmf", height = 4)
++   print(xyplot(Hwt~Bwt|Sex, data=cats, type=c("p", "r")))
++   dev.off()
++   hwriteImage("cats.wmf", p, center = FALSE, br = TRUE)
++ }
+> 
+> 
+> hwrite("Here is the cats data plot in svg format.
++ This uses an extension to hwriter to produce html code which enables
++ display in up to date versions of all common browsers.",
++        p, center = FALSE, br = TRUE)
+> CairoSVG("cats.svg", width = 4, height = 4)
+> lattice.options(theme = "col.whitebg")
+> print(xyplot(Hwt~Bwt|Sex, data=cats, type=c("p", "r")))
+> dev.off()
+null device 
+          1 
+> hwriteSVG("cats.svg", p, height = 600, width = 600,
++           center = FALSE, br = TRUE)
+> 
+> hwrite("A further format is png (portable network graphics).
++ This should display in up to date versions of all common browsers.
++ It is a bitmap format however so not scalable.",
++        p, center = FALSE, br = TRUE)
+> CairoPNG("cats.png", width = 4*80, height = 4*80)
+> 
+> lattice.options(theme = "col.whitebg")
+> print(xyplot(Hwt~Bwt|Sex, data=cats, type=c("p", "r")))
+> dev.off()
+null device 
+          1 
+> hwriteImage("cats.png", p, center = FALSE, br = TRUE)
+> 
+> hwrite("One problem with images is that the size of the image displayed
++ can vary widely from browser to browser. Obtaining the right sized image
++ for a particular browser may require a lot of trial and error.",
++        p, center = FALSE, br = TRUE)
+> 
+> ### Vectors, matrices and dataframes
+> hwrite("Vectors, Matrices and Dataframes", p,
++        heading = 1, center = FALSE, br = TRUE)
+> hwrite("Here is some code producing a character vector", p,
++        center = FALSE, br = TRUE)
+> form <- y ~ a + b + c
+> example <- as.character(form)
+> hwriteOutput(
++ "form <- y ~ a + b + c
++ example <- as.character(form)", p, center = FALSE, br = TRUE)
+> hwrite("This is the result of printing the vector", p,
++        center = FALSE, br = TRUE)
+> hwrite(example, p,
++        center = TRUE, br = TRUE)
+> 
+> hwrite("Here is some code producing a numeric vector", p,
++        center = FALSE, br = TRUE)
+> y <- 3*(1:5)
+> hwriteOutput("y <- 3*(1:5)", p, center = FALSE, br = TRUE)
+> hwrite("This is the result of printing the vector", p,
++        center = FALSE, br = TRUE)
+> hwrite(y, p,
++        center = TRUE, br = TRUE)
+> hwrite("Here is some code producing a matrix", p,
++        center = FALSE, br = TRUE)
+> mdat <- matrix(c(1,2,3, 11,12,13),
++                nrow = 2, ncol = 3, byrow = TRUE,
++                dimnames = list(c('row1', 'row2'),
++                                c('C.1', 'C.2', 'C.3')))
+> hwriteOutput(
++ "mdat <- matrix(c(1,2,3, 11,12,13),
++                nrow = 2, ncol = 3, byrow = TRUE,
++                dimnames = list(c('row1', 'row2'),
++                                c('C.1', 'C.2', 'C.3')))",
++              p, center = FALSE, br = TRUE)
+> hwrite("This is the result of printing the matrix", p,
++        center = FALSE, br = TRUE)
+> hwrite(mdat, p,
++        center = TRUE, br = TRUE)
+> hwrite("Here is some code producing a dataframe", p,
++        center = FALSE, br = TRUE)
+> L3 <- LETTERS[1:3]
+> d <- data.frame(cbind(x = 1, y = 1:10),
++                 fac = sample(L3, 10, replace = TRUE))
+> hwriteOutput(
++ "L3 <- LETTERS[1:3]
++ d <- data.frame(cbind(x = 1, y = 1:10),
++                 fac = sample(L3, 10, replace = TRUE))",
++              p, center = FALSE, br = TRUE)
+> hwrite("This is the result of printing the dataframe", p,
++        center = FALSE, br = TRUE)
+> hwrite(d, p,
++        center = TRUE, br = TRUE)
+> 
+> 
+> ### Tables
+> hwrite("Tables", p, heading = 2, center = FALSE, br = TRUE)
+> hwrite("Here is an example taken from the documentation of
++ <font face='monospace'>xtable</font>. It shows the output of an
++ ANOVA table.",
++        p, br = TRUE)
+> br(p)
+> require(xtable)
+> data(tli)
+> fm1 <- aov(tlimth ~ sex + ethnicty + grade + disadvg, data=tli)
+> fm1.table <- print(xtable(fm1), type="html")
+<!-- html table generated in R 2.13.2 by xtable 1.6-0 package -->
+<!-- Wed Nov 23 11:06:50 2011 -->
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> Df </TH> <TH> Sum Sq </TH> <TH> Mean Sq </TH> <TH> F value </TH> <TH> Pr(&gt F) </TH>  </TR>
+  <TR> <TD> sex </TD> <TD align="right"> 1 </TD> <TD align="right"> 75.37 </TD> <TD align="right"> 75.37 </TD> <TD align="right"> 0.38 </TD> <TD align="right"> 0.5417 </TD> </TR>
+  <TR> <TD> ethnicty </TD> <TD align="right"> 3 </TD> <TD align="right"> 2572.15 </TD> <TD align="right"> 857.38 </TD> <TD align="right"> 4.27 </TD> <TD align="right"> 0.0072 </TD> </TR>
+  <TR> <TD> grade </TD> <TD align="right"> 1 </TD> <TD align="right"> 36.31 </TD> <TD align="right"> 36.31 </TD> <TD align="right"> 0.18 </TD> <TD align="right"> 0.6717 </TD> </TR>
+  <TR> <TD> disadvg </TD> <TD align="right"> 1 </TD> <TD align="right"> 59.30 </TD> <TD align="right"> 59.30 </TD> <TD align="right"> 0.30 </TD> <TD align="right"> 0.5882 </TD> </TR>
+  <TR> <TD> Residuals </TD> <TD align="right"> 93 </TD> <TD align="right"> 18682.87 </TD> <TD align="right"> 200.89 </TD> <TD align="right">  </TD> <TD align="right">  </TD> </TR>
+   </TABLE>
+> 
+> hwrite(fm1.table, p, center = TRUE, br = TRUE)
+> hwrite("Here is an example taken from the documentation of
++ <font face='monospace'>table</font>. It shows the output of a
++ two-dimensional table.",
++        p, br = TRUE)
+> br(p)
+> require(stats)
+> tbl <- print(xtable(table(state.division, state.region)), type = "html")
+<!-- html table generated in R 2.13.2 by xtable 1.6-0 package -->
+<!-- Wed Nov 23 11:06:50 2011 -->
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> Northeast </TH> <TH> South </TH> <TH> North Central </TH> <TH> West </TH>  </TR>
+  <TR> <TD align="right"> New England </TD> <TD align="right">   6 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
+  <TR> <TD align="right"> Middle Atlantic </TD> <TD align="right">   3 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
+  <TR> <TD align="right"> South Atlantic </TD> <TD align="right">   0 </TD> <TD align="right">   8 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
+  <TR> <TD align="right"> East South Central </TD> <TD align="right">   0 </TD> <TD align="right">   4 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
+  <TR> <TD align="right"> West South Central </TD> <TD align="right">   0 </TD> <TD align="right">   4 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
+  <TR> <TD align="right"> East North Central </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   5 </TD> <TD align="right">   0 </TD> </TR>
+  <TR> <TD align="right"> West North Central </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   7 </TD> <TD align="right">   0 </TD> </TR>
+  <TR> <TD align="right"> Mountain </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   8 </TD> </TR>
+  <TR> <TD align="right"> Pacific </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   5 </TD> </TR>
+   </TABLE>
+> hwrite(tbl, p, center = TRUE, br = TRUE)
+> 
+> ### Output
+> hwrite("R Output", p, heading = 2, center = FALSE, br = FALSE)
+> hwrite("To include output from R in a file, the
++ command <code>capture.output</code> is used to record the output.
++ Then the output is included in the html file by using the command
++ <code>hwriteOutput</code>, which is not in the package
++  <span class = 'pkg'>hwriter</span>.", p, center = FALSE, br = TRUE)
+> hwrite("Here is an example from the <code>glm</code> help.",
++        p, center = FALSE, br = TRUE)
+> glmOut <- capture.output({
++ clotting <- data.frame(
++          u = c(5,10,15,20,30,40,60,80,100),
++          lot1 = c(118,58,42,35,27,25,21,19,18),
++          lot2 = c(69,35,26,21,18,16,13,12,12));
++ summary(glm(lot1 ~ log(u), data=clotting, family=Gamma))
++ summary(glm(lot2 ~ log(u), data=clotting, family=Gamma))
++ })
+> hwriteOutput(
++ "glmOut <- capture.output({
++ clotting <- data.frame(
++          u = c(5,10,15,20,30,40,60,80,100),
++          lot1 = c(118,58,42,35,27,25,21,19,18),
++          lot2 = c(69,35,26,21,18,16,13,12,12))
++ summary(glm(lot1 ~ log(u), data=clotting, family=Gamma))
++ summary(glm(lot2 ~ log(u), data=clotting, family=Gamma))
++ })", p, center = FALSE, br = TRUE)
+> hwrite("This produces the following result.", p, center = FALSE, br = TRUE)
+> hwriteOutput(glmOut, p, center = FALSE, br = TRUE)
+> 
+> ### R Session
+> hwrite("An R Session", p, heading = 2, center = FALSE, br = FALSE)
+> hwrite("To capture an R session, or part of one, including both commands and output, the command <code>txtStart</code> from the package <span class = 'pkg'>TeachingDemos</span> can be used then <code>hwriteOutput</code>.
++ This requires writing to a file, and reading the results back from the file. A temporary file can used for holding the output. See <code>?tempfile</code>.",
++        p, center = FALSE, br = TRUE)
+> hwrite("Here is an example.",
++        p, center = FALSE, br = TRUE)
+> tmpFile <- tempfile("Session")
+> #txtStart("Temp1.txt")
+> txtStart(tmpFile)
+Output being copied to text file,
+use txtStop to end
+txt> clotting <- data.frame(
+txt+          u = c(5,10,15,20,30,40,60,80,100),
+txt+          lot1 = c(118,58,42,35,27,25,21,19,18),
+txt+          lot2 = c(69,35,26,21,18,16,13,12,12))
+txt> clotting
+    u lot1 lot2
+1   5  118   69
+2  10   58   35
+3  15   42   26
+4  20   35   21
+5  30   27   18
+6  40   25   16
+7  60   21   13
+8  80   19   12
+9 100   18   12
+txt> summary(glm(lot1 ~ log(u), data=clotting, family=Gamma))
+
+Call:
+glm(formula = lot1 ~ log(u), family = Gamma, data = clotting)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-0.04008  -0.03756  -0.02637   0.02905   0.08641  
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -0.0165544  0.0009275  -17.85 4.28e-07 ***
+log(u)       0.0153431  0.0004150   36.98 2.75e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+(Dispersion parameter for Gamma family taken to be 0.002446059)
+
+    Null deviance: 3.51283  on 8  degrees of freedom
+Residual deviance: 0.01673  on 7  degrees of freedom
+AIC: 37.99
+
+Number of Fisher Scoring iterations: 3
+
+txt> txtStop()
+> #sessionOut <- readLines("Temp1.txt")
+> sessionOut <- readLines(tmpFile)
+> hwriteOutput(sessionOut, p, center = FALSE, br = TRUE)
+> 
+> ### Links
+> hwrite("Creating Links", p, heading = 2, center = FALSE, br = FALSE)
+> hwrite("Since html is being produced, it is easy to create links to other websites. Here is an example of a link to the Statistics Department website: ",
++        p, br = FALSE)
+> hwrite("The Department of Statistics.", p, br = TRUE,
++        link = 'http://www.stat.auckland.ac.nz/uoa/')
+> br(p)
+> hwrite("Links may be created within pages using anchors. Here is a link to
++ the first section: ",
++        p, br = FALSE)
+> hwrite("Entering Text.", p, br = FALSE,
++        link = "#intro")
+> hwrite(" This is how cross-referencing can be implemented.",
++        p, br = TRUE)
+> br(p)
+> hwrite("The numbered equation entered previously can be cross-referenced
++ using the link argument to <font face = 'monospace'>hwrite</font>.
++ That equation is equation 1 at present. Here is the link to the equation: ",
++        p, br = FALSE)
+> hwrite("Numbered Equation.", p, br = TRUE,
++        link = "#equation1")
+> ### Close file
+> closePage(p)
+> 
+> directory <- getwd()
+> reportName <- paste("file://", directory, "/", reportName, sep = "")
+> reportName
+[1] "file://C:/Users/dsco036/Documents/Research/Packages/hwriterPlusDevel/hwriterPlus/inst/examples/BrowserExample.html"
+> 
+> browseURL(reportName)
+> 
+> q(save = "no")
+> proc.time()
+   user  system elapsed 
+   1.41    0.18    2.41 
