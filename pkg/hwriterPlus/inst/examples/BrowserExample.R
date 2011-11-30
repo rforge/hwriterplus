@@ -34,8 +34,9 @@ xmlns <- "xmlns:mml='http://www.w3.org/1998/Math/MathML'"
 bodyAttributes <- list(onload = "translate()",
                        bgcolor = "FFFFFF",
                        background = "")
-head <- '<object id="mathplayer" classid="clsid:32F66A20-7614-11D4-BD11-00104BD3F987"></object>
-<?import namespace="mml" implementation="#mathplayer"?>'
+head <-
+    '<object id="mathplayer" classid="clsid:32F66A20-7614-11D4-BD11-00104BD3F987"></object>
+     <?import namespace="mml" implementation="#mathplayer"?>'
 p <- newPage(reportName,
              title = "Example of a Document for Display in a Browser",
              doctype = "",
@@ -101,7 +102,7 @@ so for example we can obtain \" and \' in the middle of some text.",
        p, br = TRUE)
 
 ### Mathematics
-hwrite("Rendering Mathematics", p,
+hwrite("Rendering Mathematics", p, id = "mathematics",
        heading = 1, center = FALSE, br = TRUE)
 hwrite("Entering more complex mathematical expressions including
 displayed mathematical expressions is difficult.
@@ -196,7 +197,7 @@ CairoSVG("cats.svg", width = 4, height = 4)
 lattice.options(theme = "col.whitebg")
 print(xyplot(Hwt~Bwt|Sex, data=cats, type=c("p", "r")))
 dev.off()
-hwriteSVG("cats.svg", p, height = 600, width = 600,
+hwriteSVG("cats.svg", p, height = 600, width = 600, id = "catsSVG",
           center = FALSE, br = TRUE)
 
 hwrite("A further format is png (portable network graphics).
@@ -349,12 +350,17 @@ hwrite("Since html is being produced, it is easy to create links to other websit
 hwrite("The Department of Statistics.", p, br = TRUE,
        link = 'http://www.stat.auckland.ac.nz/uoa/')
 br(p)
-hwrite("Links may be created within pages using anchors. Here is a link to
-the first section: ",
+hwrite("Links may be created within pages using anchors. Destination anchors in HTML documents may be specified either by the <font face = 'monospace'>a</font> element (naming it with the <font face = 'monospace'>name </font> attribute), or by any other element (naming with the <font face = 'monospace'>id</font> attribute). Here is a link to the first section created using the <font face = 'monospace'>a</font> element: ",
        p, br = FALSE)
-hwrite("Entering Text.", p, br = FALSE,
+hwrite("Entering Text.", p, br = TRUE,
        link = "#intro")
-hwrite(" This is how cross-referencing can be implemented.",
+br(p)
+hwrite("Here is a link to the third section created by naming with the <font face = 'monospace'>id</font> attribute: ",
+       p, br = FALSE)
+hwrite("Rendering Mathematics.", p, br = TRUE,
+       link = "#mathematics")
+br(p)
+hwrite("This use of named or identified elements of a documents is how cross-referencing can be implemented.",
        p, br = TRUE)
 br(p)
 hwrite("The numbered equation entered previously can be cross-referenced
@@ -363,6 +369,12 @@ That equation is equation 1 at present. Here is the link to the equation: ",
        p, br = FALSE)
 hwrite("Numbered Equation.", p, br = TRUE,
        link = "#equation1")
+br(p)
+hwrite("The graph in SVG format included previously can also be cross-referenced since it was assigned an identifier using the  <font face = 'monospace'>id</font> attribute. Here is a link to that graph: ",
+       p, br = FALSE)
+hwrite("Graph in SVG format.", p, br = TRUE,
+       link = "#catsSVG")
+br(p)
 ### Close file
 closePage(p)
 

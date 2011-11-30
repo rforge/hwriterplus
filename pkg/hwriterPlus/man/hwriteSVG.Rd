@@ -10,7 +10,7 @@
 }
 \usage{
 hwriteSVG(image.url, page = NULL, width = 500, height = 500,
-          attributes = "border = '0'", ...)
+          id = "", attributes = "border = '0'", ...)
 }
 \arguments{
   \item{image.url}{A character vector or matrix containing the URL or
@@ -25,6 +25,9 @@ hwriteSVG(image.url, page = NULL, width = 500, height = 500,
     rendered. Must be present if browser being used is Internet
     Explorer. If missing, Firefox will use the default image
     width(resp. height).}
+
+  \item{id}{Character. A string providing an identifier for the SVG
+    image.}
 
   \item{attributes}{Attributes of the SVG image. See details.}
 

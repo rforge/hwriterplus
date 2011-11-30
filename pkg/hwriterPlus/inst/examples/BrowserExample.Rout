@@ -26,7 +26,7 @@ Type 'q()' to quit R.
 > ###
 > ### DJS 27/10/2011
 > date()
-[1] "Wed Nov 23 11:06:49 2011"
+[1] "Wed Nov 30 18:54:20 2011"
 > options(width=80)
 > 
 > ### Set some state variables
@@ -114,8 +114,9 @@ function (ltx, page = NULL, table.attributes = NULL, tr.attributes = NULL,
 > bodyAttributes <- list(onload = "translate()",
 +                        bgcolor = "FFFFFF",
 +                        background = "")
-> head <- '<object id="mathplayer" classid="clsid:32F66A20-7614-11D4-BD11-00104BD3F987"></object>
-+ <?import namespace="mml" implementation="#mathplayer"?>'
+> head <-
++     '<object id="mathplayer" classid="clsid:32F66A20-7614-11D4-BD11-00104BD3F987"></object>
++      <?import namespace="mml" implementation="#mathplayer"?>'
 > p <- newPage(reportName,
 +              title = "Example of a Document for Display in a Browser",
 +              doctype = "",
@@ -181,7 +182,7 @@ function (ltx, page = NULL, table.attributes = NULL, tr.attributes = NULL,
 +        p, br = TRUE)
 > 
 > ### Mathematics
-> hwrite("Rendering Mathematics", p,
+> hwrite("Rendering Mathematics", p, id = "mathematics",
 +        heading = 1, center = FALSE, br = TRUE)
 > hwrite("Entering more complex mathematical expressions including
 + displayed mathematical expressions is difficult.
@@ -286,7 +287,7 @@ Coefficients:
 > dev.off()
 null device 
           1 
-> hwriteSVG("cats.svg", p, height = 600, width = 600,
+> hwriteSVG("cats.svg", p, height = 600, width = 600, id = "catsSVG",
 +           center = FALSE, br = TRUE)
 > 
 > hwrite("A further format is png (portable network graphics).
@@ -374,7 +375,7 @@ null device
 > fm1 <- aov(tlimth ~ sex + ethnicty + grade + disadvg, data=tli)
 > fm1.table <- print(xtable(fm1), type="html")
 <!-- html table generated in R 2.13.2 by xtable 1.6-0 package -->
-<!-- Wed Nov 23 11:06:50 2011 -->
+<!-- Wed Nov 30 18:54:21 2011 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Df </TH> <TH> Sum Sq </TH> <TH> Mean Sq </TH> <TH> F value </TH> <TH> Pr(&gt F) </TH>  </TR>
   <TR> <TD> sex </TD> <TD align="right"> 1 </TD> <TD align="right"> 75.37 </TD> <TD align="right"> 75.37 </TD> <TD align="right"> 0.38 </TD> <TD align="right"> 0.5417 </TD> </TR>
@@ -393,7 +394,7 @@ null device
 > require(stats)
 > tbl <- print(xtable(table(state.division, state.region)), type = "html")
 <!-- html table generated in R 2.13.2 by xtable 1.6-0 package -->
-<!-- Wed Nov 23 11:06:50 2011 -->
+<!-- Wed Nov 30 18:54:21 2011 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Northeast </TH> <TH> South </TH> <TH> North Central </TH> <TH> West </TH>  </TR>
   <TR> <TD align="right"> New England </TD> <TD align="right">   6 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
@@ -500,12 +501,17 @@ txt> txtStop()
 > hwrite("The Department of Statistics.", p, br = TRUE,
 +        link = 'http://www.stat.auckland.ac.nz/uoa/')
 > br(p)
-> hwrite("Links may be created within pages using anchors. Here is a link to
-+ the first section: ",
+> hwrite("Links may be created within pages using anchors. Destination anchors in HTML documents may be specified either by the <font face = 'monospace'>a</font> element (naming it with the <font face = 'monospace'>name </font> attribute), or by any other element (naming with the <font face = 'monospace'>id</font> attribute). Here is a link to the first section created using the <font face = 'monospace'>a</font> element: ",
 +        p, br = FALSE)
-> hwrite("Entering Text.", p, br = FALSE,
+> hwrite("Entering Text.", p, br = TRUE,
 +        link = "#intro")
-> hwrite(" This is how cross-referencing can be implemented.",
+> br(p)
+> hwrite("Here is a link to the third section created by naming with the <font face = 'monospace'>id</font> attribute: ",
++        p, br = FALSE)
+> hwrite("Rendering Mathematics.", p, br = TRUE,
++        link = "#mathematics")
+> br(p)
+> hwrite("This use of named or identified elements of a documents is how cross-referencing can be implemented.",
 +        p, br = TRUE)
 > br(p)
 > hwrite("The numbered equation entered previously can be cross-referenced
@@ -514,17 +520,23 @@ txt> txtStop()
 +        p, br = FALSE)
 > hwrite("Numbered Equation.", p, br = TRUE,
 +        link = "#equation1")
+> br(p)
+> hwrite("The graph in SVG format included previously can also be cross-referenced since it was assigned an identifier using the  <font face = 'monospace'>id</font> attribute. Here is a link to that graph: ",
++        p, br = FALSE)
+> hwrite("Graph in SVG format.", p, br = TRUE,
++        link = "#catsSVG")
+> br(p)
 > ### Close file
 > closePage(p)
 > 
 > directory <- getwd()
 > reportName <- paste("file://", directory, "/", reportName, sep = "")
 > reportName
-[1] "file://C:/Users/dsco036/Documents/Research/Packages/hwriterPlusDevel/hwriterPlus/inst/examples/BrowserExample.html"
+[1] "file://C:/Users/dsco036/Documents/Research/Packages/hwriterPlusDevel/hwriterplus/pkg/hwriterPlus/inst/examples/BrowserExample.html"
 > 
 > browseURL(reportName)
 > 
 > q(save = "no")
 > proc.time()
    user  system elapsed 
-   1.41    0.18    2.41 
+   1.32    0.14    1.93 
