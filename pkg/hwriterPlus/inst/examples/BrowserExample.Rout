@@ -26,7 +26,7 @@ Type 'q()' to quit R.
 > ###
 > ### DJS 27/10/2011
 > date()
-[1] "Wed Nov 30 18:54:20 2011"
+[1] "Thu Dec 01 15:11:22 2011"
 > options(width=80)
 > 
 > ### Set some state variables
@@ -375,7 +375,7 @@ null device
 > fm1 <- aov(tlimth ~ sex + ethnicty + grade + disadvg, data=tli)
 > fm1.table <- print(xtable(fm1), type="html")
 <!-- html table generated in R 2.13.2 by xtable 1.6-0 package -->
-<!-- Wed Nov 30 18:54:21 2011 -->
+<!-- Thu Dec 01 15:11:23 2011 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Df </TH> <TH> Sum Sq </TH> <TH> Mean Sq </TH> <TH> F value </TH> <TH> Pr(&gt F) </TH>  </TR>
   <TR> <TD> sex </TD> <TD align="right"> 1 </TD> <TD align="right"> 75.37 </TD> <TD align="right"> 75.37 </TD> <TD align="right"> 0.38 </TD> <TD align="right"> 0.5417 </TD> </TR>
@@ -394,7 +394,7 @@ null device
 > require(stats)
 > tbl <- print(xtable(table(state.division, state.region)), type = "html")
 <!-- html table generated in R 2.13.2 by xtable 1.6-0 package -->
-<!-- Wed Nov 30 18:54:21 2011 -->
+<!-- Thu Dec 01 15:11:23 2011 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Northeast </TH> <TH> South </TH> <TH> North Central </TH> <TH> West </TH>  </TR>
   <TR> <TD align="right"> New England </TD> <TD align="right">   6 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
@@ -418,25 +418,73 @@ null device
 +  <span class = 'pkg'>hwriter</span>.", p, center = FALSE, br = TRUE)
 > hwrite("Here is an example from the <code>glm</code> help.",
 +        p, center = FALSE, br = TRUE)
-> glmOut <- capture.output({
+> glmOut <- capture.output(
 + clotting <- data.frame(
 +          u = c(5,10,15,20,30,40,60,80,100),
 +          lot1 = c(118,58,42,35,27,25,21,19,18),
-+          lot2 = c(69,35,26,21,18,16,13,12,12));
-+ summary(glm(lot1 ~ log(u), data=clotting, family=Gamma))
-+ summary(glm(lot2 ~ log(u), data=clotting, family=Gamma))
-+ })
++          lot2 = c(69,35,26,21,18,16,13,12,12)),
++ summary(glm(lot1 ~ log(u), data=clotting, family=Gamma)),
++ summary(glm(lot2 ~ log(u), data=clotting, family=Gamma)))
+> glmOut
+ [1] ""                                                               
+ [2] "Call:"                                                          
+ [3] "glm(formula = lot1 ~ log(u), family = Gamma, data = clotting)"  
+ [4] ""                                                               
+ [5] "Deviance Residuals: "                                           
+ [6] "     Min        1Q    Median        3Q       Max  "             
+ [7] "-0.04008  -0.03756  -0.02637   0.02905   0.08641  "             
+ [8] ""                                                               
+ [9] "Coefficients:"                                                  
+[10] "              Estimate Std. Error t value Pr(>|t|)    "         
+[11] "(Intercept) -0.0165544  0.0009275  -17.85 4.28e-07 ***"         
+[12] "log(u)       0.0153431  0.0004150   36.98 2.75e-09 ***"         
+[13] "---"                                                            
+[14] "Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 "
+[15] ""                                                               
+[16] "(Dispersion parameter for Gamma family taken to be 0.002446059)"
+[17] ""                                                               
+[18] "    Null deviance: 3.51283  on 8  degrees of freedom"           
+[19] "Residual deviance: 0.01673  on 7  degrees of freedom"           
+[20] "AIC: 37.99"                                                     
+[21] ""                                                               
+[22] "Number of Fisher Scoring iterations: 3"                         
+[23] ""                                                               
+[24] ""                                                               
+[25] "Call:"                                                          
+[26] "glm(formula = lot2 ~ log(u), family = Gamma, data = clotting)"  
+[27] ""                                                               
+[28] "Deviance Residuals: "                                           
+[29] "     Min        1Q    Median        3Q       Max  "             
+[30] "-0.05574  -0.02925   0.01030   0.01714   0.06371  "             
+[31] ""                                                               
+[32] "Coefficients:"                                                  
+[33] "              Estimate Std. Error t value Pr(>|t|)    "         
+[34] "(Intercept) -0.0239085  0.0013265  -18.02 4.00e-07 ***"         
+[35] "log(u)       0.0235992  0.0005768   40.91 1.36e-09 ***"         
+[36] "---"                                                            
+[37] "Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 "
+[38] ""                                                               
+[39] "(Dispersion parameter for Gamma family taken to be 0.001813354)"
+[40] ""                                                               
+[41] "    Null deviance: 3.118557  on 8  degrees of freedom"          
+[42] "Residual deviance: 0.012672  on 7  degrees of freedom"          
+[43] "AIC: 27.032"                                                    
+[44] ""                                                               
+[45] "Number of Fisher Scoring iterations: 3"                         
+[46] ""                                                               
 > hwriteOutput(
-+ "glmOut <- capture.output({
++ "glmOut <- capture.output(
 + clotting <- data.frame(
 +          u = c(5,10,15,20,30,40,60,80,100),
 +          lot1 = c(118,58,42,35,27,25,21,19,18),
-+          lot2 = c(69,35,26,21,18,16,13,12,12))
-+ summary(glm(lot1 ~ log(u), data=clotting, family=Gamma))
-+ summary(glm(lot2 ~ log(u), data=clotting, family=Gamma))
-+ })", p, center = FALSE, br = TRUE)
++          lot2 = c(69,35,26,21,18,16,13,12,12)),
++ summary(glm(lot1 ~ log(u), data=clotting, family=Gamma)),
++ summary(glm(lot2 ~ log(u), data=clotting, family=Gamma)))",
++              p, center = FALSE, br = TRUE)
 > hwrite("This produces the following result.", p, center = FALSE, br = TRUE)
 > hwriteOutput(glmOut, p, center = FALSE, br = TRUE)
+> hwrite("Note the commas separating the parts of the output to be captured. See the help and examples for <font face = 'monospace'>capture.output</font> for details.",
++        p, br = TRUE)
 > 
 > ### R Session
 > hwrite("An R Session", p, heading = 2, center = FALSE, br = FALSE)
@@ -539,4 +587,4 @@ txt> txtStop()
 > q(save = "no")
 > proc.time()
    user  system elapsed 
-   1.32    0.14    1.93 
+   1.29    0.18    2.10 

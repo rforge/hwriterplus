@@ -302,25 +302,27 @@ Then the output is included in the html file by using the command
  <span class = 'pkg'>hwriter</span>.", p, center = FALSE, br = TRUE)
 hwrite("Here is an example from the <code>glm</code> help.",
        p, center = FALSE, br = TRUE)
-glmOut <- capture.output({
+glmOut <- capture.output(
 clotting <- data.frame(
          u = c(5,10,15,20,30,40,60,80,100),
          lot1 = c(118,58,42,35,27,25,21,19,18),
-         lot2 = c(69,35,26,21,18,16,13,12,12));
-summary(glm(lot1 ~ log(u), data=clotting, family=Gamma))
-summary(glm(lot2 ~ log(u), data=clotting, family=Gamma))
-})
+         lot2 = c(69,35,26,21,18,16,13,12,12)),
+summary(glm(lot1 ~ log(u), data=clotting, family=Gamma)),
+summary(glm(lot2 ~ log(u), data=clotting, family=Gamma)))
+glmOut
 hwriteOutput(
-"glmOut <- capture.output({
+"glmOut <- capture.output(
 clotting <- data.frame(
          u = c(5,10,15,20,30,40,60,80,100),
          lot1 = c(118,58,42,35,27,25,21,19,18),
-         lot2 = c(69,35,26,21,18,16,13,12,12))
-summary(glm(lot1 ~ log(u), data=clotting, family=Gamma))
-summary(glm(lot2 ~ log(u), data=clotting, family=Gamma))
-})", p, center = FALSE, br = TRUE)
+         lot2 = c(69,35,26,21,18,16,13,12,12)),
+summary(glm(lot1 ~ log(u), data=clotting, family=Gamma)),
+summary(glm(lot2 ~ log(u), data=clotting, family=Gamma)))",
+             p, center = FALSE, br = TRUE)
 hwrite("This produces the following result.", p, center = FALSE, br = TRUE)
 hwriteOutput(glmOut, p, center = FALSE, br = TRUE)
+hwrite("Note the commas separating the parts of the output to be captured. See the help and examples for <font face = 'monospace'>capture.output</font> for details.",
+       p, br = TRUE)
 
 ### R Session
 hwrite("An R Session", p, heading = 2, center = FALSE, br = FALSE)
