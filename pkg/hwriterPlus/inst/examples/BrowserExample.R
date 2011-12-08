@@ -302,25 +302,21 @@ Then the output is included in the html file by using the command
  <span class = 'pkg'>hwriter</span>.", p, center = FALSE, br = TRUE)
 hwrite("Here is an example from the <code>glm</code> help.",
        p, center = FALSE, br = TRUE)
-glmOut <- capture.output(
-clotting <- data.frame(
-         u = c(5,10,15,20,30,40,60,80,100),
-         lot1 = c(118,58,42,35,27,25,21,19,18),
-         lot2 = c(69,35,26,21,18,16,13,12,12)),
-summary(glm(lot1 ~ log(u), data=clotting, family=Gamma)),
-summary(glm(lot2 ~ log(u), data=clotting, family=Gamma)))
-glmOut
+aggOut <-
+    capture.output(data(iris),
+                   str(iris),
+                   aggregate(Sepal.Length~Species, iris, mean)
+                   )
+aggOut
 hwriteOutput(
-"glmOut <- capture.output(
-clotting <- data.frame(
-         u = c(5,10,15,20,30,40,60,80,100),
-         lot1 = c(118,58,42,35,27,25,21,19,18),
-         lot2 = c(69,35,26,21,18,16,13,12,12)),
-summary(glm(lot1 ~ log(u), data=clotting, family=Gamma)),
-summary(glm(lot2 ~ log(u), data=clotting, family=Gamma)))",
+"aggOut <-
+    capture.output(data(iris),
+                   str(iris),
+                   aggregate(Sepal.Length~Species, iris, mean)
+                   )",
              p, center = FALSE, br = TRUE)
 hwrite("This produces the following result.", p, center = FALSE, br = TRUE)
-hwriteOutput(glmOut, p, center = FALSE, br = TRUE)
+hwriteOutput(aggOut, p, center = FALSE, br = TRUE)
 hwrite("Note the commas separating the parts of the output to be captured. See the help and examples for <font face = 'monospace'>capture.output</font> for details.",
        p, br = TRUE)
 
@@ -334,15 +330,18 @@ hwrite("Here is an example.",
 tmpFile <- tempfile("Session")
 #txtStart("Temp1.txt")
 txtStart(tmpFile)
-clotting <- data.frame(
-         u = c(5,10,15,20,30,40,60,80,100),
-         lot1 = c(118,58,42,35,27,25,21,19,18),
-         lot2 = c(69,35,26,21,18,16,13,12,12))
+clotting <-
+    data.frame(
+               u = c(5,10,15,20,30,40,60,80,100),
+               lot1 = c(118,58,42,35,27,25,21,19,18),
+               lot2 = c(69,35,26,21,18,16,13,12,12)
+               )
 clotting
-summary(glm(lot1 ~ log(u), data=clotting, family=Gamma))
+coef(glm(lot1 ~ log(u), data=clotting, family=Gamma))
 txtStop()
 #sessionOut <- readLines("Temp1.txt")
 sessionOut <- readLines(tmpFile)
+sessionOut
 hwriteOutput(sessionOut, p, center = FALSE, br = TRUE)
 
 ### Links

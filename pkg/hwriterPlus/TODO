@@ -1,3 +1,14 @@
 Instead of using TeachingDemos to capture output and sessions,
 investigate capture and texteval in Greg Warnes package sessions.
 
+Add a meta argument to newPage so that author etc can be added as in
+Siegrist (2007) recommendations
+
+Change the headers to match what is in Siegrist (2007)
+
+Allow LaTeXMathML as in Knisley
+
+Fix the equation referencing. Record the equation number and a
+label. Use the label to allow for reordering of the equations.
+
+
