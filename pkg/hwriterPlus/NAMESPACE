@@ -9,7 +9,8 @@ export(newPage,
        hwriteOutput,
        hwriteSVG,
        hwriteLatex,
-       as.latex)
+       as.latex,
+       script)
 ################################################
 ## S3 classes
 ################################################

@@ -5,6 +5,7 @@ newPage <- function(filename, dirname = NULL, title = filename,
                     head = NULL, charset = "utf-8", lang = "en",
                     head.attributes = NULL, body.attributes = NULL)
 {
+    #today <- format(strptime(date(), "%a %b %d %H:%M:%S %Y"), "%B %d, %Y")
     if (!is.null(dirname)) {
         if (!file.exists(dirname))
             dir.create(dirname, rec = TRUE, showWar = FALSE)
