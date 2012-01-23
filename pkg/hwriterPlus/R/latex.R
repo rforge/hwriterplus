@@ -26,29 +26,17 @@ hwriteLatex <- function(ltx, page = NULL,
     } else {
         ## not inline: own living space (will be within a table to center it)
         if (ltx$count) {
-            cat("\n<script>\n nequations = nequations+1;\n document.write(\"<a name = 'equation\"+nequations+\"'>&nbsp;</a>\")</script>\n",
-                file = page, append = TRUE)
-        }
-        if (!is.null(ltx$label)){
-            txt <- "\n<br /><span class = 'equation'>Equation"
-            if (ltx$count){
-                txt <- paste(txt,
-                             "<script>document.write(nequations);</script>")
+            ## update counter hwriterEquation
+            hwriterEquation <<- hwriterEquation + 1
+            ## deal with label
+            if (is.null(ltx$label)){
+                hwriterEquationList[hwriterEquation] <<-
+                    paste("eq:", hwriterEquation, sep = "")
+            } else {
+                hwriterEquationList[hwriterEquation] <<-
+                    paste("eq:", ltx$label, sep = "")
             }
-            txt <- paste(txt, "-",ltx$label)
-            cat(txt, file = page, append = TRUE)
-        }
-        if (!ltx$count){
-            if (is.null(table.attributes)){
-                table.attributes <- "border = '0'"
-            }
-            cat(paste("<br /><center><table ",
-                      table.attributes, "><tr ",
-                      tr.attributes, "><td align = 'center'>`",
-                      ltx$alt, "`</td></tr></table></center><br />",
-                      sep = ""),
-                file = page, append = TRUE)
-        } else {
+            ## write out equation as table with equation number
             if (is.null(table.attributes)){
                 table.attributes <- "border = '0' width = '90%'"
             }
@@ -64,10 +52,22 @@ hwriteLatex <- function(ltx, page = NULL,
                       td.attributes[1], ">&nbsp;</td><td ",
                       td.attributes[2], ">`",
                       ltx$alt, "`</td><td ",
-                      td.attributes[3], "><script>document.write('('+nequations+')')</script></td></tr></table></center><br />",
+                      td.attributes[3], " <a name = '",
+                      hwriterEquationList[hwriterEquation],
+                      "'>(", hwriterEquation,
+                      ")</td></tr></table></center><br />",
+                      sep = ""),
+                file = page, append = TRUE)
+        } else {
+            if (is.null(table.attributes)){
+                table.attributes <- "border = '0'"
+            }
+            cat(paste("<br /><center><table ",
+                      table.attributes, "><tr ",
+                      tr.attributes, "><td align = 'center'>`",
+                      ltx$alt, "`</td></tr></table></center><br />",
                       sep = ""),
                 file = page, append = TRUE)
         }
     }
 }
-

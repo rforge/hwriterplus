@@ -8,14 +8,16 @@ citHeader("To cite package 'hwriterPlus' in publications use:")
      year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
      vers <- paste("R package version", meta$Version)
 
-     citEntry(entry="Manual",
-              title = "hwriterPlus: Extending the hwriter Package",
-              author = personList(as.person("David J. Scott")),
-              year = year,
-              note = vers,
+citEntry(entry="Manual",
+  title = "hwriterPlus: Extending the hwriter Package",
+  author = personList(as.person("David J. Scott")),
+  year = "2011",
+  note = "R package version 1.0",
+  url = "https://r-forge.r-project.org/R/?group_id=1269",
 
-              textVersion =
-              paste("David J. Scott, (",
-                    year,
-                    "). hwriterPlus: Extending the hwriter Package. ",
-                    vers, ".", sep=""))
+  textVersion =
+    paste("David J. Scott (2011). ",
+	  "hwriterPlus: Extending the hwriter Package. ",
+          "https://r-forge.r-project.org/R/?group_id=1269",
+          ".", sep = "")
+)

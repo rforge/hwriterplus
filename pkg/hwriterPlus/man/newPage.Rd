@@ -35,7 +35,7 @@ newPage(filename, dirname = NULL, title = filename,
     import.}
 
   \item{link.javascript}{An optional character vector containing the URL
-    of Javascripts to be associated with the page.}
+    of JavaScripts to be associated with the page.}
 
   \item{link.css}{An optional character vector containing the URL of CSS
     stylesheets to be associated with the page.}
@@ -61,7 +61,6 @@ newPage(filename, dirname = NULL, title = filename,
 }
 
 \details{
-
   \code{newPage} opens a new file for writing and returns a page handle
   which is used by \code{hwrite} to append HTML elements in a current
   page. Any previous existing file will be overwritten.
@@ -108,6 +107,14 @@ newPage(filename, dirname = NULL, title = filename,
   incorporation of mathematical expressions it is necessary to run the
   JavaScript code. For display in Internet Explorer, the attribute
   \code{onload = "translate()"} is necessary.
+
+ To allow the numbering of displayed equations \code{newPage} creates a
+ global variable called \code{hwriterEquation} and assigns it the value
+ zero. This variable will be updated when a numbered equation is written
+ to the HTML file so that it always records the number of the last
+ numbered equation. It also creates a a global vector named
+ \code{hwriterEquationList}, which is initially empty, but will contain
+ the labels of any numbered equations.
 
 }
 \value{

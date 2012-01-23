@@ -1,11 +1,18 @@
-newPage <- function(filename, dirname = NULL, title = filename,
-                    doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n",
-                    xmlns = "xmlns='http://www.w3.org/1999/xhtml'",
-                    link.javascript = NULL, link.css = NULL, css = NULL,
-                    head = NULL, charset = "utf-8", lang = "en",
-                    head.attributes = NULL, body.attributes = NULL)
+newPage <-
+    function(filename, dirname = NULL, title = filename,
+             doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n",
+             xmlns = "xmlns='http://www.w3.org/1999/xhtml'",
+             link.javascript = NULL, link.css = NULL, css = NULL,
+             head = NULL, charset = "utf-8", lang = "en",
+             head.attributes = NULL, body.attributes = NULL)
 {
-    #today <- format(strptime(date(), "%a %b %d %H:%M:%S %Y"), "%B %d, %Y")
+    ## today <- format(strptime(date(), "%a %b %d %H:%M:%S %Y"), "%B %d, %Y")
+
+    ## Experimental: uses  global assignment which needs fixing
+    ## Create equation numbers and lists
+    hwriterEquation <<- 0
+    hwriterEquationList <<- character(0)
+
     if (!is.null(dirname)) {
         if (!file.exists(dirname))
             dir.create(dirname, rec = TRUE, showWar = FALSE)

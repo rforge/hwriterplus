@@ -1,6 +1,6 @@
 ### Browser Example
 ### This example is intended to show all the capability of hwriterPlus
-### to produce an html document for display in a browser
+### to produce an HTML document for display in a browser
 ###
 ### DJS 27/10/2011
 date()
@@ -14,7 +14,7 @@ if (opSys == "Windows"){
   linux <- TRUE
 }
 
-reportName <- "BrowserExample.html"
+reportName <- "BrowserExampleNew.html"
 
 ### Packages required
 require(hwriterPlus)
@@ -22,8 +22,6 @@ require(Cairo)
 require(xtable)
 require(MASS)
 require(lattice)
-
-hwriteLatex
 
 ### Break function
 br <- function(page){
@@ -46,6 +44,11 @@ p <- newPage(reportName,
              body.attributes = bodyAttributes,
              head = head)
 br(p)
+
+### Check if values have been set
+hwriterEquation
+hwriterEquationList
+
 hwrite("<span class = 'title'>
        Example of a Document for Display in a Browser</span>",
        p, center = TRUE, br = TRUE)
@@ -91,8 +94,8 @@ br(p)
 hwrite("More than one approach is
 available to produce mathematical symbols.
 Greek letters can be produced by using symbol font:
-<font face='symbol, fantasy'>a, b, G</font>, although this may not work in some
-browsers without the presence of additional fonts.
+<font face='symbol, fantasy'>a, b, G</font>, although this may not
+work in some browsers without the presence of additional fonts.
 Codes can be used instead of `\\LaTeX`-like names:
 <math>&#8592;, &#8747; and &#8719;",
        p, br = TRUE)
@@ -126,11 +129,15 @@ example MathPlayer is used. This is an extension to the package
        p, br = TRUE)
 br(p)
 hwrite("Here is an inline expression:`\\int_{-\\infty}^{1}f(x)dx`,
-followed by two displayed expressions, one of which is numbered and labelled. The first example also has a box around it, by assigning the value
+followed by two displayed expressions, one of which is numbered and
+has also been assigned a label.
+The first example also has a box around it, by assigning the value
 <font face = 'monospace'> \"border = '1'\"</font> to the argument
 <font face = 'monospace'> table.attributes</font>.",
        p, br = TRUE)
 br(p)
+
+
 hwriteLatex(as.latex("\\int_{-\\infty}^{1}f(x)dx",
                      inline = FALSE, count = FALSE),
             page = p,
@@ -139,13 +146,16 @@ hwriteLatex(as.latex("\\int_{-\\infty}^{1}f(x)dx",
 
 hwriteLatex(as.latex("\\{ 26.119 < \\sum_{i=1}^n(X_i-\\bar{X})^2\\}
 \\bigcup\\ \\{ 5.629 > \\sum_{i=1}^n (X_i-\\bar{X})^2 \\}.",
-                     inline = FALSE, label = "equation number and label"),
+                     inline = FALSE, label = "equation1"),
             page = p,
             tr.attributes = "bgcolor = 'white'",
             td.attributes = c("width = '50'", "align = 'center'",
                               "align = 'right' width = '50'"))
 br(p)
 
+### Check again on equation numbering
+hwriterEquation
+hwriterEquationList
 
 ### Images
 hwrite("Incorporating Images", p,
@@ -190,7 +200,7 @@ if (!linux) {
 
 
 hwrite("Here is the cats data plot in svg format.
-This uses an extension to hwriter to produce html code which enables
+This uses an extension to hwriter to produce HTML code which enables
 display in up to date versions of all common browsers.",
        p, center = FALSE, br = TRUE)
 CairoSVG("cats.svg", width = 4, height = 4)
@@ -297,7 +307,7 @@ hwrite(tbl, p, center = TRUE, br = TRUE)
 hwrite("R Output", p, heading = 2, center = FALSE, br = FALSE)
 hwrite("To include output from R in a file, the
 command <code>capture.output</code> is used to record the output.
-Then the output is included in the html file by using the command
+Then the output is included in the HTML file by using the command
 <code>hwriteOutput</code>, which is not in the package
  <span class = 'pkg'>hwriter</span>.", p, center = FALSE, br = TRUE)
 hwrite("Here is an example from the <code>glm</code> help.",
@@ -317,13 +327,19 @@ hwriteOutput(
              p, center = FALSE, br = TRUE)
 hwrite("This produces the following result.", p, center = FALSE, br = TRUE)
 hwriteOutput(aggOut, p, center = FALSE, br = TRUE)
-hwrite("Note the commas separating the parts of the output to be captured. See the help and examples for <font face = 'monospace'>capture.output</font> for details.",
+hwrite("Note the commas separating the parts of the output to be captured.
+See the help and examples for <code>capture.output</code> for details.",
        p, br = TRUE)
 
 ### R Session
 hwrite("An R Session", p, heading = 2, center = FALSE, br = FALSE)
-hwrite("To capture an R session, or part of one, including both commands and output, the command <code>txtStart</code> from the package <span class = 'pkg'>TeachingDemos</span> can be used then <code>hwriteOutput</code>.
-This requires writing to a file, and reading the results back from the file. A temporary file can used for holding the output. See <code>?tempfile</code>.",
+hwrite("To capture an R session, or part of one, including both commands
+and output, the command <code>txtStart</code> from the package
+<span class = 'pkg'>TeachingDemos</span> can be used then
+<code>hwriteOutput</code>.
+This requires writing to a file, and reading the results back
+from the file. A temporary file can used for holding the output.
+See <code>?tempfile</code>.",
        p, center = FALSE, br = TRUE)
 hwrite("Here is an example.",
        p, center = FALSE, br = TRUE)
@@ -346,22 +362,32 @@ hwriteOutput(sessionOut, p, center = FALSE, br = TRUE)
 
 ### Links
 hwrite("Creating Links", p, heading = 2, center = FALSE, br = FALSE)
-hwrite("Since html is being produced, it is easy to create links to other websites. Here is an example of a link to the Statistics Department website: ",
+hwrite("Since HTML is being produced, it is easy to create links to
+other websites. Here is an example of a link to the Statistics Department
+website: ",
        p, br = FALSE)
 hwrite("The Department of Statistics.", p, br = TRUE,
        link = 'http://www.stat.auckland.ac.nz/uoa/')
 br(p)
-hwrite("Links may be created within pages using anchors. Destination anchors in HTML documents may be specified either by the <font face = 'monospace'>a</font> element (naming it with the <font face = 'monospace'>name </font> attribute), or by any other element (naming with the <font face = 'monospace'>id</font> attribute). Here is a link to the first section created using the <font face = 'monospace'>a</font> element: ",
+hwrite("Links may be created within pages using anchors.
+Destination anchors in HTML documents may be specified either by the
+<font face = 'monospace'>a</font> element (naming it with the
+<font face = 'monospace'>name </font> attribute), or by any other
+element (naming with the <font face = 'monospace'>id</font> attribute).
+Here is a link to the first section created using the
+<font face = 'monospace'>a</font> element: ",
        p, br = FALSE)
 hwrite("Entering Text.", p, br = TRUE,
        link = "#intro")
 br(p)
-hwrite("Here is a link to the third section created by naming with the <font face = 'monospace'>id</font> attribute: ",
+hwrite("Here is a link to the third section created by naming with
+the <font face = 'monospace'>id</font> attribute: ",
        p, br = FALSE)
 hwrite("Rendering Mathematics.", p, br = TRUE,
        link = "#mathematics")
 br(p)
-hwrite("This use of named or identified elements of a documents is how cross-referencing can be implemented.",
+hwrite("This use of named or identified elements of a documents is
+how cross-referencing can be implemented.",
        p, br = TRUE)
 br(p)
 hwrite("The numbered equation entered previously can be cross-referenced
@@ -369,9 +395,28 @@ using the link argument to <font face = 'monospace'>hwrite</font>.
 That equation is equation 1 at present. Here is the link to the equation: ",
        p, br = FALSE)
 hwrite("Numbered Equation.", p, br = TRUE,
-       link = "#equation1")
+       link = "#eq:equation1")
+### Test paste
+paste("We can also retrieve the number of a labeled equation.
+For example the numbered equation was the first equation and had the label
+\"equation1\" which in full is \"eq:equation1\". We can retrieve the number
+using <code> which(hwriterEquationList == \"eq:equation1\")
+</code>",which(hwriterEquationList == "eq:equation1"), "or more simply using
+the convenience function <code>eqRef</code>, by <code>eqRef(\"equation1\") ")
+
+hwrite(paste("We can also retrieve the number of a labeled equation.
+For example the numbered equation was the first equation and had the label
+\"equation1\" which in full is \"eq:equation1\". We can retrieve the number
+using <code> which(hwriterEquationList == \"eq:equation1\")</code>
+which produces ",which(hwriterEquationList == "eq:equation1"),
+"or more easily using the convenience function <code>eqRef</code>,
+using simply <code>eqRef(\"equation1\")</code>."),
+       p, br = TRUE)
 br(p)
-hwrite("The graph in SVG format included previously can also be cross-referenced since it was assigned an identifier using the  <font face = 'monospace'>id</font> attribute. Here is a link to that graph: ",
+hwrite("The graph in SVG format included previously can also be
+cross-referenced since it was assigned an identifier using the
+<font face = 'monospace'>id</font> attribute.
+Here is a link to that graph: ",
        p, br = FALSE)
 hwrite("Graph in SVG format.", p, br = TRUE,
        link = "#catsSVG")

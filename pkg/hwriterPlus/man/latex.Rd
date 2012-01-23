@@ -106,11 +106,23 @@ hwriteLatex(ltx, page = NULL,
   three entries: the first is a non-breaking space, the second is the
   mathematical expression itself and the third is the equation number.
 
-  Note that these functions are slightly modified versions of
-  \code{as.latex} and \code{HTML.latex} from the package
-  \pkg{R2HTML}. The most notable change is that \code{HTML.latex} does
-  not allow for inclusion of table and table data attributes in
-  mathematical expressions.
+  Note that these functions are modified versions of \code{as.latex} and
+  \code{HTML.latex} from the package \pkg{R2HTML}. The most notable
+  changes are that \code{HTML.latex} does not allow for inclusion of
+  table and table data attributes in mathematical expressions and the
+  numbering of equations uses \R{} code rather than JavaScript. The
+  numbering system for equations adds an entry to the global vector
+  \code{hwriterEquationList} whenever a numbered equation is created. If
+  a label is specified via the \code{label} argument, by for example,
+  \code{label = "anequationlabel"}, then an anchor is created as part of
+  the table data entry containing the equation number, using an HTML
+  \code{a} element. The actual anchor name is \code{eq:anequationlabel},
+  which copies the label categorizing approach used in LaTeX. If no
+  label is specified, but the equation is numbered, the name used for
+  the anchor is \code{eq:equationxx} where \code{xx} is the equation
+  number. Then the number of an equation corresponding to a given label
+  may be retrieved using the function \code{eqRef} (intended to be
+  reminiscent of the LaTeX \code{\\ref} command).
 
   To see what attributes are valid for tables, table rows and table
   data, go to \url{http://www.w3schools.com/tags/} and click on the
@@ -194,11 +206,11 @@ hwriteLatex(as.latex("\\int_{-\\infty}^{1}f(x)dx",
             table.attributes = "border = '1'",
             tr.attributes = "bgcolor = 'white'")
 ### We can also have equation numbers and labels when writing to a file
-hwrite("Here is a different expression with accompanying label and
-       equation number", p, br)
+hwrite("Here is a different expression which has an equation number and
+assigned a label", p, br)
 hwriteLatex(as.latex("\\{ 26.119 < \\sum_{i=1}^n(X_i-\\bar{X})^2\\}
 \\bigcup\\ \\{ 5.629 > \\sum_{i=1}^n (X_i-\\bar{X})^2 \\}.",
-                     inline = FALSE, label = "equation number and label"),
+                     inline = FALSE, label = "anequationlabel"),
             page = p,
             tr.attributes = "bgcolor = 'gray'",
             td.attributes = c("width = '50'",
