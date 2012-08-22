@@ -1,6 +1,6 @@
 
-R version 2.13.2 (2011-09-30)
-Copyright (C) 2011 The R Foundation for Statistical Computing
+R version 2.15.0 (2012-03-30)
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: i386-pc-mingw32/i386 (32-bit)
 
@@ -26,7 +26,7 @@ Type 'q()' to quit R.
 > ###
 > ### DJS 27/10/2011
 > date()
-[1] "Mon Jan 23 19:11:47 2012"
+[1] "Wed Aug 22 17:27:57 2012"
 > options(width=80)
 > 
 > ### Set some state variables
@@ -338,8 +338,8 @@ null device
 > data(tli)
 > fm1 <- aov(tlimth ~ sex + ethnicty + grade + disadvg, data=tli)
 > fm1.table <- print(xtable(fm1), type="html")
-<!-- html table generated in R 2.13.2 by xtable 1.6-0 package -->
-<!-- Mon Jan 23 19:11:47 2012 -->
+<!-- html table generated in R 2.15.0 by xtable 1.7-1 package -->
+<!-- Wed Aug 22 17:27:57 2012 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Df </TH> <TH> Sum Sq </TH> <TH> Mean Sq </TH> <TH> F value </TH> <TH> Pr(&gt F) </TH>  </TR>
   <TR> <TD> sex </TD> <TD align="right"> 1 </TD> <TD align="right"> 75.37 </TD> <TD align="right"> 75.37 </TD> <TD align="right"> 0.38 </TD> <TD align="right"> 0.5417 </TD> </TR>
@@ -357,8 +357,8 @@ null device
 > br(p)
 > require(stats)
 > tbl <- print(xtable(table(state.division, state.region)), type = "html")
-<!-- html table generated in R 2.13.2 by xtable 1.6-0 package -->
-<!-- Mon Jan 23 19:11:47 2012 -->
+<!-- html table generated in R 2.15.0 by xtable 1.7-1 package -->
+<!-- Wed Aug 22 17:27:57 2012 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Northeast </TH> <TH> South </TH> <TH> North Central </TH> <TH> West </TH>  </TR>
   <TR> <TD align="right"> New England </TD> <TD align="right">   6 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
@@ -471,6 +471,63 @@ txt> txtStop()
 [17] "(Intercept)      log(u) "                                            
 [18] "-0.01655438  0.01534311 "                                            
 > hwriteOutput(sessionOut, p, center = FALSE, br = TRUE)
+> hwrite("An alternative approach which should not mangle line breaks is provided by the <code>script</code> function written by Ross Ihaka",
++        p, center = FALSE, br = TRUE)
+> tmpFile <- tempfile("Session")
+> script(tmpFile)
+Script started, file is "C:\Users\dsco036\AppData\Local\Temp\RtmpuQJBYQ\Session12145b4f66e9"
+script> clotting <-
+script+     data.frame(
+script+                u = c(5,10,15,20,30,40,60,80,100),
+script+                lot1 = c(118,58,42,35,27,25,21,19,18),
+script+                lot2 = c(69,35,26,21,18,16,13,12,12)
+script+                )
+script> clotting
+    u lot1 lot2
+1   5  118   69
+2  10   58   35
+3  15   42   26
+4  20   35   21
+5  30   27   18
+6  40   25   16
+7  60   21   13
+8  80   19   12
+9 100   18   12
+script> coef(glm(lot1 ~ log(u), data=clotting, family=Gamma))
+(Intercept)      log(u) 
+-0.01655438  0.01534311 
+script> q()
+Script done, file is "C:\Users\dsco036\AppData\Local\Temp\RtmpuQJBYQ\Session12145b4f66e9"
+> sessionOut <- readLines(tmpFile)
+> sessionOut
+ [1] "Script started on Wed Aug 22 17:27:57 2012 "            
+ [2] "> clotting <-"                                          
+ [3] ">     data.frame("                                      
+ [4] ">                u = c(5,10,15,20,30,40,60,80,100),"    
+ [5] ">                lot1 = c(118,58,42,35,27,25,21,19,18),"
+ [6] ">                lot2 = c(69,35,26,21,18,16,13,12,12)"  
+ [7] ">                )"                                     
+ [8] "> clotting"                                             
+ [9] "    u lot1 lot2"                                        
+[10] "1   5  118   69"                                        
+[11] "2  10   58   35"                                        
+[12] "3  15   42   26"                                        
+[13] "4  20   35   21"                                        
+[14] "5  30   27   18"                                        
+[15] "6  40   25   16"                                        
+[16] "7  60   21   13"                                        
+[17] "8  80   19   12"                                        
+[18] "9 100   18   12"                                        
+[19] "> coef(glm(lot1 ~ log(u), data=clotting, family=Gamma))"
+[20] "(Intercept)      log(u) "                               
+[21] "-0.01655438  0.01534311 "                               
+[22] "> q()"                                                  
+[23] "Script done on Wed Aug 22 17:27:57 2012 "               
+> hwriteOutput(sessionOut, p, center = FALSE, br = TRUE)
+> hwrite("New function <code>hwriteScript</code> can be used to drop off lines at the beginning and end of the file created by <code>script</code>.",
++        p, center = FALSE, br = TRUE)
+> hwriteScript(sessionOut, p, center = FALSE, br = TRUE)
+> 
 > 
 > ### Links
 > hwrite("Creating Links", p, heading = 2, center = FALSE, br = FALSE)
@@ -547,4 +604,4 @@ txt> txtStop()
 > q(save = "no")
 > proc.time()
    user  system elapsed 
-   1.20    0.20    1.84 
+   1.21    0.15    1.46 

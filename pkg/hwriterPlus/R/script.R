@@ -72,7 +72,7 @@ script =
 	        nwarnings <<- n
 	    }
 	    invokeRestart("muffleWarning")
-	}        
+	}
 	tryCatchWithWarnings =
 	    function(expr)
 	    withCallingHandlers(tryCatch(expr,
@@ -186,8 +186,8 @@ script =
 	    }
 
         function(file = "transcript.txt") {
-	    if (!isatty(stdin()))
-	        stop("script can only be used interactively")
+	    ## if (!isatty(stdin()))
+	    ##     stop("script can only be used interactively")
 	    transcon = file(file, "w")
 	    outcon = file("")
 	    cat("Script started, file is \"", file, "\"\n", sep = "")

@@ -359,6 +359,26 @@ txtStop()
 sessionOut <- readLines(tmpFile)
 sessionOut
 hwriteOutput(sessionOut, p, center = FALSE, br = TRUE)
+hwrite("An alternative approach which should not mangle line breaks is provided by the <code>script</code> function written by Ross Ihaka",
+       p, center = FALSE, br = TRUE)
+tmpFile <- tempfile("Session")
+script(tmpFile)
+clotting <-
+    data.frame(
+               u = c(5,10,15,20,30,40,60,80,100),
+               lot1 = c(118,58,42,35,27,25,21,19,18),
+               lot2 = c(69,35,26,21,18,16,13,12,12)
+               )
+clotting
+coef(glm(lot1 ~ log(u), data=clotting, family=Gamma))
+q()
+sessionOut <- readLines(tmpFile)
+sessionOut
+hwriteOutput(sessionOut, p, center = FALSE, br = TRUE)
+hwrite("The new function <code>hwriteScript</code> can be used to drop off lines at the beginning and end of the file created by <code>script</code>.",
+       p, center = FALSE, br = TRUE)
+hwriteScript(sessionOut, p, center = FALSE, br = TRUE)
+
 
 ### Links
 hwrite("Creating Links", p, heading = 2, center = FALSE, br = FALSE)

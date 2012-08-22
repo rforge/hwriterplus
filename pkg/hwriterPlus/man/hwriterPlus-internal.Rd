@@ -1,4 +1,5 @@
 \name{hwriterPlus-internal}
+\alias{hwriteScript}
 
 \title{Internal hwriterPlus objects}
 \description{

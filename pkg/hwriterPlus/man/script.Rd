@@ -54,25 +54,8 @@ Ross Ihaka \email{r.ihaka@auckland.ac.nz}
 ##-- ==>  Define data, use random,
 ##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function(file = "transcript.txt") {
-            cat("Transcript being recorded in \"",
-                file, "\"\n", sep = "")
-            transcon = file(file, "w")
-            cat("# Transcript started", date(), "\n", file = transcon)
-            ##  I'm not sure this is right.  However, it works!
-            repeat {
-                e = tryCatch(repl(sys.parent(), transcon),
-                    interrupt = function(x) { cat("\n") })
-                if (is.logical(e))
-                    break
-            }
-            close(transcon)
-            cat("Transcript recording finished\n")
-            invisible()
-        }
+
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
+\keyword{ IO }
+\keyword{ utilities }
