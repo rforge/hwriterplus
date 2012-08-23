@@ -1,5 +1,3 @@
-Use Ross' script function to record output instead of txtStart.
-
 Add a meta argument to newPage so that author etc can be added as in
 Siegrist (2007) recommendations
 
@@ -23,3 +21,5 @@ Convenience functions: to retrieve an equation number for example:
 eqRef, takes a label and produces the corresponding equation number.
 
 Use write.table to write objects of class table.
+
+Use closures to establish counters for equations, sections etc.
