@@ -82,14 +82,14 @@ hwrite("Using appropriate tags and a list of symbols it is possible to
 output mathematical and other symbols. Superscripts and subscripts are
 also possible.", p, br = TRUE)
 br(p)
-hwrite("Here are some Greek letters: <math>&alpha;</math>
-<math>&beta;</math> and &Gamma;</math>,
+hwrite("Here are some Greek letters: &alpha;
+&beta; and &Gamma;,
 followed by some examples of superscripts and subscripts:
-<math>&alpha;<sup>2</sup> and &beta;<sub>n</sub></math>. As examples
+&alpha;<sup>2</sup> and &beta;<sub>n</sub>. As examples
 of other symbols, here are some arrows:
-<math>&larr;</math>  and <math>&rArr;,</math> some set symbols:
-<math>&exist;  and &cap;,</math> and some operators:
-<math>&int;  and &prod;.</math>", p, br = TRUE)
+&larr;  and &rArr;, some set symbols:
+&exist;  and &cap;, and some operators:
+&int;  and &prod;.", p, br = TRUE)
 br(p)
 hwrite("More than one approach is
 available to produce mathematical symbols.
@@ -97,7 +97,7 @@ Greek letters can be produced by using symbol font:
 <font face='symbol, fantasy'>a, b, G</font>, although this may not
 work in some browsers without the presence of additional fonts.
 Codes can be used instead of `\\LaTeX`-like names:
-<math>&#8592;, &#8747; and &#8719;",
+&#8592;, &#8747; and &#8719;",
        p, br = TRUE)
 br(p)
 hwrite("Quotes can be incorporated by escaping with \"\\\",

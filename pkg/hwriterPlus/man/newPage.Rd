@@ -10,11 +10,10 @@
 }
 \usage{
 newPage(filename, dirname = NULL, title = filename,
-        doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n",
-        xmlns = "xmlns='http://www.w3.org/1999/xhtml'",
+        doctype = "<!DOCTYPE html>\n",
         link.javascript = NULL, link.css = NULL, css = NULL,
-        head = NULL, charset = "utf-8", lang = "en",
-        head.attributes = NULL, body.attributes = NULL)
+        head = NULL, head.attributes = NULL,
+        body.attributes = NULL)
 }
 
 \arguments{
@@ -31,9 +30,6 @@ newPage(filename, dirname = NULL, title = filename,
     statement which declares the document type and level of HTML
     syntax.}
 
-  \item{xmlns}{A character string specifying an XML namespace to
-    import.}
-
   \item{link.javascript}{An optional character vector containing the URL
     of JavaScripts to be associated with the page.}
 
@@ -45,12 +41,6 @@ newPage(filename, dirname = NULL, title = filename,
 
   \item{head}{An optional character string containing an HTML fragment
     to be added in the \code{<head>} section of the page.}
-
-  \item{charset}{An optional character string containing the current
-  charset. Default is "utf-8".}
-
-  \item{lang}{An optional character string containing the current
-    langage. Default is "en".}
 
   \item{head.attributes}{An optional named list of character strings,
     containing the \code{<head>} attributes.}
@@ -67,35 +57,22 @@ newPage(filename, dirname = NULL, title = filename,
 
   The \code{doctype} argument is used to specify the document type and
   level of HTML syntax. Valid forms may be found at
-  \url{http://www.w3.org/QA/2002/04/valid-dtd-list.html}. \pkg{hwriter}
-  uses the transitional XHTML 1.0 specification:
-  \code{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">}. For
-  incorporation of mathematical expressions omission of the doctype
-  statement was found to work fairly reliably and did not seem to cause
-  other problems.
-
-  \code{xmlns} allows the importation of XML namespaces. Authoritative
-  documentation of this feature may be found at
-  \url{http://www.w3.org/TR/REC-xml-names/}. \pkg{hwriter} uses
-  \code{xmlns='http://www.w3.org/1999/xhtml'} plus a language
-  specification. For incorporation of mathematical expressions,
-  \code{xmlns:mml='http://www.w3.org/1998/Math/MathML'} taken from
-  \pkg{R2HTML} appears to work fairly reliably.
+  \url{http://www.w3.org/QA/2002/04/valid-dtd-list.html}.
 
   \code{link.javascript} produces A \code{<script>} tag specifying the
-  language as JavaScript and stating the location of the code. For
-  example incorporating mathematical expressions uses MathPlayer in
-  Internet Explorer, and the JavaScript required is in the file
-  \code{ASCIIMathML.js} and the location of this file must be specified.
+  language as JavaScript and stating the location of the
+  code. \pkg{hwriterPlus} uses MathJax from
+  \url{http://www.mathjax.org/}. The JavaScript may either be loaded
+  from the MathJax site, or from a local file. The former option
+  requires an active internet connection, while the latter requires that
+  MathJax must have been installed locally. The form of the text for
+  this argument is \code{"path-to-MathJax/MathJax.js"}. See the examples
+  for the appropriate text when loading from MathJax directly.  Details
+  of how to ensure MathJax is loaded, for Version 2 of MathJax may be
+  found at \url{http://www.mathjax.org/docs/2.0/configuration.html}.
 
   The argument \code{head} is useful to add extra HTML code in the
-  \code{<head>} header code.  For incorporation of mathematical
-  expressions, the following argument value for \code{head} appears to
-  to work fairly reliably:
-  \code{<object id="mathplayer"
-    classid="clsid:32F66A20-7614-11D4-BD11-00104BD3F987"></object>
-    <?import namespace="mml" implementation="#mathplayer"?>}
+  \code{<head>} header code.
 
   \code{head.attributes} is useful to add extra attributes in the
   \code{<head>} head code. A description of possible head attributes may
@@ -103,10 +80,7 @@ newPage(filename, dirname = NULL, title = filename,
 
   \code{body.attributes} is useful to add extra attributes in the
   \code{<body>} body code. A description of possible body attributes may
-  be found at \url{http://www.w3schools.com/tags/tag_body.asp}. For
-  incorporation of mathematical expressions it is necessary to run the
-  JavaScript code. For display in Internet Explorer, the attribute
-  \code{onload = "translate()"} is necessary.
+  be found at \url{http://www.w3schools.com/tags/tag_body.asp}.
 
  To allow the numbering of displayed equations \code{newPage} creates a
  global variable called \code{hwriterEquation} and assigns it the value
@@ -128,9 +102,9 @@ newPage(filename, dirname = NULL, title = filename,
  David Scott \email{d.scott@auckland.ac.nz}
 }
 \note{
-  \code{newPage} is an extension of \code{newPage} from \pkg{hwriter}
-  which allows more flexibility in the construction of the header
-  section of the HTML document.
+  \code{newPage} is a modification of \code{openPage} from \pkg{hwriter}
+  which includes a \code{doctype} argument but eliminates the
+  \code{charset} and \code{lang} arguments provided by \code{openPage}.
 }
 
 \seealso{
@@ -142,17 +116,19 @@ newPage(filename, dirname = NULL, title = filename,
 
 ### Creates a new web page 'test.html' in the R temporary directory
 tmpdir <- tempdir()
-p <- newPage('test.html', dirname=tmpdir,
-              link.css='http://www.ebi.ac.uk/~gpau/hwriter/hwriter.css')
-hwrite('Iris example', p, center=TRUE, heading=1)
+p <- newPage('test.html', dirname = tmpdir,
+              link.css = 'http://www.ebi.ac.uk/~gpau/hwriter/hwriter.css')
+hwrite('Iris example', p, center = TRUE, heading = 1)
 hwrite('This famous (Fisher\'s or Anderson\'s) iris data set gives the
         measurements in centimeters of the variables sepal length and
         width and petal length and width, respectively, for 50 flowers
-        from each of 3 species of iris.', p, class='king')
-hwrite(iris, p, row.bgcolor='#ffffaa')
+        from each of 3 species of iris.', p, class = 'king')
+hwrite(iris, p, row.bgcolor = '#ffffaa')
 closePage(p)
 
 ### Opens a web browser on the web page
 if (interactive()) try(browseURL(file.path(tmpdir, 'test.html')))
 }
+
+
 \keyword{interface}
