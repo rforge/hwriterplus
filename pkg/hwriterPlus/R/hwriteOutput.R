@@ -1,6 +1,5 @@
 hwriteOutput <- function(output, page = NULL, fontSize = "10pt", ...,
-                         link = NULL, name = NULL, heading = NULL,
-                         center = NULL, br = NULL, div = NULL) {
+                         link = NULL, name = NULL, br = NULL, div = NULL) {
 
   ## Purpose: Addition to hwriter to allow easy printing of R output
   ## ----------------------------------------------------------------------
@@ -10,7 +9,6 @@ hwriteOutput <- function(output, page = NULL, fontSize = "10pt", ...,
 
   ## default arguments
   if (is.null(br)) br <- FALSE
-  if (is.null(center)) center <- FALSE
   if (is.null(div)) div <- FALSE
   args <- list(...)
 
@@ -21,14 +19,13 @@ hwriteOutput <- function(output, page = NULL, fontSize = "10pt", ...,
                   output, "</pre>", sep = "")
 
   hwrite(output, page = page, ..., link = link, name = name,
-         heading = heading, center = center, br = br, div = div)
+         br = br, div = div)
 
 }
 
 hwriteScript <- function(scriptFile, page = NULL, fontSize = "10pt",
                          trim = TRUE, ...,
-                         link = NULL, name = NULL, heading = NULL,
-                         center = NULL, br = NULL, div = NULL) {
+                         link = NULL, name = NULL, br = NULL, div = NULL) {
 
   ## Purpose: Addition to hwriter to allow easy printing of R session
   ## ----------------------------------------------------------------------
@@ -40,7 +37,6 @@ hwriteScript <- function(scriptFile, page = NULL, fontSize = "10pt",
 
   ## Default arguments
   if (is.null(br)) br <- FALSE
-  if (is.null(center)) center <- FALSE
   if (is.null(div)) div <- FALSE
   args <- list(...)
 
@@ -60,6 +56,6 @@ hwriteScript <- function(scriptFile, page = NULL, fontSize = "10pt",
                   session, "</pre>", sep = "")
 
   hwrite(session, page = page, ..., link = link, name = name,
-         heading = heading, center = center, br = br, div = div)
+         br = br, div = div)
 
 }

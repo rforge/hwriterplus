@@ -19,11 +19,9 @@ optionally trims lines added at the beginning and end of the session by
 }
 \usage{
 hwriteOutput(output, page = NULL, fontSize = "10pt", ...,
-             link = NULL, name = NULL, heading = NULL,
-             center = NULL, br = NULL, div = NULL)
+             link = NULL, name = NULL, br = NULL, div = NULL)
 hwriteScript(scriptFile, page = NULL, fontSize = "10pt", trim = TRUE, ...,
-             link = NULL, name = NULL, heading = NULL,
-             center = NULL, br = NULL, div = NULL)
+             link = NULL, name = NULL, br = NULL, div = NULL)
 }
 
 \arguments{
@@ -45,7 +43,8 @@ hwriteScript(scriptFile, page = NULL, fontSize = "10pt", trim = TRUE, ...,
   }
   
   \item{trim}{A logical. If \code{TRUE}, deletes the first and last
-    two lines of the lines of text returned by \code{script}.    
+    two lines of the lines of text returned by \code{script}. Default is
+    \code{TRUE}. 
   }
 
   \item{\dots}{Optional arguments. See Details section of
@@ -60,16 +59,6 @@ hwriteScript(scriptFile, page = NULL, fontSize = "10pt", trim = TRUE, ...,
   \item{name}{A character string naming the HTML element for further
     reference. This is the equivalent of the attribute \code{name} of
     the HTML tag<a>.
-  }
-
-  \item{heading}{A numeric containing the heading level style. Valid
-    values spans from 1 to 5.
-  }
-
-  \item{center}{A logical indicating if \code{x} should be
-    centered. Default is \code{FALSE}. This element may interfere with the
-    current CSS style. Please consider the use the CSS style attribute
-    "text-align" instead.
   }
 
   \item{br}{A logical specifying if a breakline (carriage return) should

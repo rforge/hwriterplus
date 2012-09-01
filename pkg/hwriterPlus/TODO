@@ -3,8 +3,6 @@ Siegrist (2007) recommendations
 
 Change the headers to match what is in Siegrist (2007)
 
-Allow LaTeXMathML as in Knisley
-
 Fix the equation referencing. Record the equation number and a
 label. Use the label to allow for reordering of the equations.
 Use R code instead of JavaScript, then numbering should also work in Word.

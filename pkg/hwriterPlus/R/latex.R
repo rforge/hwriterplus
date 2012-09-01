@@ -21,7 +21,7 @@ hwriteLatex <- function(ltx, page = NULL,
     if (! is(ltx, "latex")) ltx <- as.latex(ltx)
     if (ltx$inline){
         ## inline: directly there in the text (can't be counted or labeled)
-        cat(paste("`", ltx$alt,"`", sep = ""),
+        cat(paste("\\(", ltx$alt,"\\)", sep = ""),
             file = page, append = TRUE, sep = " ")
     } else {
         ## not inline: own living space (will be within a table to center it)
@@ -50,8 +50,8 @@ hwriteLatex <- function(ltx, page = NULL,
                       table.attributes, "><tr ",
                       tr.attributes, "><td ",
                       td.attributes[1], ">&nbsp;</td><td ",
-                      td.attributes[2], ">`",
-                      ltx$alt, "`</td><td ",
+                      td.attributes[2], ">\\[",
+                      ltx$alt, "\\]</td><td ",
                       td.attributes[3], " id = '",
                       hwriterEquationList[hwriterEquation],
                       "'>(", hwriterEquation,
@@ -64,8 +64,8 @@ hwriteLatex <- function(ltx, page = NULL,
             }
             cat(paste("<br /><center><table ",
                       table.attributes, "><tr ",
-                      tr.attributes, "><td align = 'center'>`",
-                      ltx$alt, "`</td></tr></table></center><br />",
+                      tr.attributes, "><td align = 'center'>\\[",
+                      ltx$alt, "\\]</td></tr></table></center><br />",
                       sep = ""),
                 file = page, append = TRUE)
         }

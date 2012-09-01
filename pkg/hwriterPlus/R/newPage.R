@@ -13,7 +13,7 @@ newPage <- function(filename, dirname = NULL, title = filename,
 
     if (!is.null(dirname)) {
         if (!file.exists(dirname))
-            dir.create(dirname, rec = TRUE, showWar = FALSE)
+            dir.create(dirname, recursive = TRUE, showWarnings = FALSE)
         filename <- file.path(dirname, filename)
     }
     page <- file(filename, "wt")
@@ -33,6 +33,6 @@ newPage <- function(filename, dirname = NULL, title = filename,
                                 head.attributes))
     bodyStart <- do.call(hmakeTag, c(list("body", NULL), body.attributes))
     bodyStart <- substr(bodyStart, 1, regexpr("</body>", bodyStart) - 1)
-    hwrite(paste(doctype, "<html ", "'>", head, bodyStart, sep = ""), page)
+    hwrite(paste(doctype, "<html ", ">", head, bodyStart, sep = ""), page)
     page
 }
