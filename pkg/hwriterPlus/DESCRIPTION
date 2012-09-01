@@ -5,7 +5,7 @@ Version: 1.0-1
 Date: 2012-09-01
 Author: David Scott <d.scott@auckland.ac.nz>
 Maintainer: David Scott <d.scott@auckland.ac.nz>
-Depends: R (>= 2.10.0), hwriter, TeachingDemos
+Depends: R (>= 2.10.0), hwriter, TeachingDemos, RUnit
 Suggests: xtable
 Description: This package extends the package hwriter providing facilities
 	     such as the inclusion of output from R, the results of an
