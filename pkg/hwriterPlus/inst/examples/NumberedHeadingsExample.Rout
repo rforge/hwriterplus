@@ -1,0 +1,99 @@
+
+R version 2.15.0 (2012-03-30)
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: i386-pc-mingw32/i386 (32-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+
+ Read .Rprofile
+> ### Example file for including CSS in the html file
+> ### and for automatically numbering headings
+> ###
+> ### DJS, 15/10/2012
+> 
+> date()
+[1] "Mon Oct 15 14:19:53 2012"
+> options(width=80)
+> 
+> ### Set some state variables
+> opSys <- Sys.info()["sysname"]
+> if (opSys == "Windows"){
++   linux <- FALSE
++ } else {
++   linux <- TRUE
++ }
+> 
+> require(hwriterPlus)
+Loading required package: hwriterPlus
+Loading required package: hwriter
+Loading required package: TeachingDemos
+Loading required package: RUnit
+> 
+> ### Prepare report file
+> today <- format(Sys.Date(), "%d%B%Y")
+> reportName <- "NumberedHeadingsExample.html"
+> reportName
+[1] "NumberedHeadingsExample.html"
+> 
+> ### Include CSS file
+> cssText <- paste(readLines("numberedheadings.css"), collapse = "\n")
+> 
+> 
+> ### Open file for writing
+> pg <- newPage(reportName, css = cssText)
+> 
+> ### Start writing
+> hwrite("<span class = 'title'> Example File for Numbered Headings</span>",
++        pg, center = TRUE, br = TRUE)
+> today <- format(Sys.Date(), "%B %d, %Y")
+> today
+[1] "October 15, 2012"
+> hwrite(paste("<span class = 'subtitle'> Dr David J Scott <br>",
++              today, "</span>"),
++        pg, center = TRUE, br = TRUE)
+> 
+> 
+> hwrite("Level 1 Heading",
++        pg, heading = 1, br = TRUE)
+> 
+> hwrite("Level 2 Heading", pg, heading = 2)
+> 
+> hwrite("Another Level 2 Heading", pg, heading = 2)
+> 
+> hwrite("Level 3 Heading", pg, heading = 3)
+> 
+> hwrite("Another Level 1 Heading",
++        pg, heading = 1, br = TRUE)
+> 
+> 
+> hwrite("Some ordinary text.", pg, br = TRUE)
+> 
+> hwrite("", pg, br = TRUE)
+> hwrite("", pg, br = TRUE)
+> hwrite("Source File: NumberedHeadingsExample.R", pg,
++        style = 'font-size:8pt', br = TRUE)
+> 
+> closePage(pg)
+> directory <- getwd()
+> reportName <- paste("file://", directory,"/", reportName, sep = "")
+> reportName
+[1] "file://c:/Users/dsco036/Documents/Research/Packages/hwriterPlusDevel/hwriterplus/pkg/hwriterPlus/inst/examples/NumberedHeadingsExample.html"
+> 
+> browseURL(reportName)
+> 
+> q(save = "no")
+> proc.time()
+   user  system elapsed 
+   0.78    0.07    0.96 
