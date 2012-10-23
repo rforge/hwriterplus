@@ -13,6 +13,6 @@ Description: This package extends the package hwriter providing
 	     expressions using LaTeX notation and the incorporation of
 	     SVG graphical objects.  It uses MathJax to display
 	     mathematical expressions, in contrast to R2HTML which
-	     uses MathML.
+	     uses ASCIIMathML.
 License: GPL (>= 2)
 LazyLoad: yes
