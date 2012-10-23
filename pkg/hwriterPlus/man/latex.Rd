@@ -6,9 +6,9 @@
   Insert LaTeX Code into an HTML File
 }
 \description{
-  This makes use of the \code{ASCIIMathML} JavaScript functions.
-  Standard LaTeX input will be turned into MathML and displayed through
-  any browser extension that can handle MathML (such as MathPlayer).
+  This makes use of the \code{MathJax} JavaScript functions.
+  Standard LaTeX input will be turned into MathML and displayed in any
+  modern browser.
 }
 \usage{
 as.latex(x, label = NULL,
@@ -59,11 +59,7 @@ hwriteLatex(ltx, page = NULL,
 }
 \details{
   Mathematical expressions in LaTeX format will be translated into
-  MathML by the \code{ASCIIMathML} JavaScript program of Peter
-  Jipsen. Note that his functions allow translation of ASCII expressions
-  into mathematical expressions with a notation simpler than LaTeX which
-  does not require the use of backslashes. See his page on
-  \code{ASCIIMathML} for details.
+  MathML by the \code{MathJax} JavaScript program.
 
   Mathematical expressions can be inserted \emph{inline} (within text)
   or on a single line as a displayed expression, corresponding to the
@@ -71,13 +67,6 @@ hwriteLatex(ltx, page = NULL,
 
   One problem with writing LaTeX expressions is that all backslashes
   must be repeated. See the examples.
-
-  For the translation to MathML to work, a reference to the JavaScript
-  file must be present within the HTML file \bold{and} the HTML body tag
-  has also to include \code{onload="translate()"}. The translation is
-  very much browser dependent, but should work with recent versions of
-  Firefox and Internet Explorer. Older versions of Internet Explorer
-  will require the installation of the MathPlayer plugin.
 
   See the examples for an example of arguments to be supplied to
   \code{newPage} to ensure mathematical expressions are displayed.
@@ -141,7 +130,7 @@ hwriteLatex(ltx, page = NULL,
   specified file.
 }
 \references{
-  ASCIIMathML: \url{http://www1.chapman.edu/~jipsen/mathml/asciimath.xml}
+  MathJax: \url{http://www.mathjax.org/}
 }
 \author{
   David Scott \email{d.scott@auckland.ac.nz}
@@ -176,25 +165,11 @@ fileName <- file.path(tmpDir, 'hwriteLatex.html')
 ### Copy some necessary files
 cssDir <- file.path(system.file(package = 'hwriterPlus'), 'css')
 file.copy(file.path(cssDir, "BrowserExample.css"), tmpDir)
-jsDir <- file.path(system.file(package = 'hwriterPlus'), 'javascript')
-file.copy(file.path(jsDir, "ASCIIMathML.js"), tmpDir)
 
-### Set up some necessary header information
-xmlns <- "xmlns:mml='http://www.w3.org/1998/Math/MathML'"
-bodyAttributes <- list(onload = "translate()",
-                       bgcolor = "FFFFFF",
-                       background = "")
-head <- '<object id="mathplayer" classid="clsid:32F66A20-7614-11D4-BD11-00104BD3F987"></object>
-<?import namespace="mml" implementation="#mathplayer"?>'
 ### Open file for writing
 p <- newPage(fileName,
              title = "Example of a Document for Display in a Browser",
-             doctype = "",
-             xmlns = xmlns,
-             link.css = c("BrowserExample.css"),
-             link.javascript = c("ASCIIMathML.js"),
-             body.attributes = bodyAttributes,
-             head = head)
+             link.css = c("BrowserExample.css"))
 hwrite("Here is an inline mathematical expression:
         `\\int_{-\\infty}^{1}f(x)dx`", p, br)
 ### The same expression but displayed
