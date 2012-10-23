@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ><head>
+<title>NumberedHeadingsExample.html</title>
+
+
+
+<style>/* numbering headings */
+body { counter-reset: h1counter; }      /* Create the counter for H1 */
+h1:before {
+    content: counter(h1counter) ".\0000a0\0000a0";
+    counter-increment: h1counter;	/* Add 1 to next H1 */
+}
+h1 { counter-reset: h2counter; }
+h2:before {
+    content: counter(h2counter, lower-alpha) ".\0000a0\0000a0";
+    counter-increment: h2counter;
+}
+h2 { counter-reset: h3counter; }
+h3:before {
+    content: counter(h3counter, lower-roman) ".\0000a0\0000a0";
+    counter-increment:h3counter;
+}
+
+.title {
+	font-family: Times New Roman, serif;
+	font-size: 25pt;
+	font-style: normal;
+	font-weight: 900;
+	font-variant: small-caps;
+	text-align: center;
+}
+
+.subtitle {
+	font-family: Times New Roman, serif;
+	font-size: 15pt;
+	font-style: normal;
+	font-weight: 900;
+	font-variant: small-caps;
+	text-align: center;
+}
+
+body {
+    padding-top: 10px;
+    padding-left: 5%;
+    padding-right: 5%;
+    font-family: Times New Roman;
+    background-color: #ffffff
+}
+
+table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f6f6f6;
+    border-color: gray
+}
+
+table td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-color: gray
+}</style></head>
+<body><center><span class = 'title'> Example File for Numbered Headings</span></center><br/>
+<center><span class = 'subtitle'> Dr David J Scott <br> October 15, 2012 </span></center><br/>
+<h1>Level 1 Heading</h1><br/>
+<h2>Level 2 Heading</h2><h2>Another Level 2 Heading</h2><h3>Level 3 Heading</h3><h1>Another Level 1 Heading</h1><br/>
+Some ordinary text.<br/>
+<br/>
+<br/>
+<span style="font-size:8pt">Source File: NumberedHeadingsExample.R</span><br/>
+
+<br/><br/><font size="-2">(Page generated on Mon Oct 15 14:19:53 2012 by <a href="http://www.embl.de/~gpau/hwriter/index.html">hwriter</a> 1.3)</font><br/>
+</body></html>

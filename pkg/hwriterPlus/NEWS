@@ -1,0 +1,17 @@
+
+	**************************************************
+	*						 *
+	*	   hwriterPlus News			 *
+	*						 *
+	**************************************************
+
+
+VERSION 1.0-1
+
+	Altered headers to use MathJax. BrowserExampleMathJax.R shows
+	the use of hwriterPlus including LaTeX expressions in-line and
+	displayed, recording of R sessions and output amongst other
+	capabilities.
+	
+	
+	
