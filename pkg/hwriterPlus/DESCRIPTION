@@ -1,8 +1,8 @@
 Package: hwriterPlus
 Type: Package
 Title: hwriterPlus: Extending the hwriter Package
-Version: 1.0-1
-Date: 2012-10-22
+Version: 1.0-2
+Date: 2012-11-15
 Author: David Scott <d.scott@auckland.ac.nz>
 Maintainer: David Scott <d.scott@auckland.ac.nz>
 Depends: R (>= 2.10.0), hwriter, TeachingDemos, RUnit
