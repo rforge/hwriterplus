@@ -2,6 +2,7 @@
 ### Package imports
 ################################################
 import(hwriter)
+importFrom(TeachingDemos, txtStart, txtStop)
 ################################################
 ### Functions
 ################################################

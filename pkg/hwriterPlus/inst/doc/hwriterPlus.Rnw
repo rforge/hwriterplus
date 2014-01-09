@@ -1,4 +1,0 @@
-%\VignetteIndexEntry{hwriterPlus: Extending the hwriter Package}
-\documentclass{article}
-\begin{document}
-\end{document}

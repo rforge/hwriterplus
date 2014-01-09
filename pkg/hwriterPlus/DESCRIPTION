@@ -1,12 +1,13 @@
 Package: hwriterPlus
 Type: Package
 Title: hwriterPlus: Extending the hwriter Package
-Version: 1.0-2
-Date: 2012-11-15
+Version: 1.0-3
+Date: 2014-01-09
 Author: David Scott <d.scott@auckland.ac.nz>
 Maintainer: David Scott <d.scott@auckland.ac.nz>
-Depends: R (>= 2.10.0), hwriter, TeachingDemos, RUnit
-Suggests: xtable
+Depends: R (>= 2.10.0), hwriter
+Imports: TeachingDemos
+Suggests: xtable, RUnit
 Description: This package extends the package hwriter providing
 	     facilities such as the inclusion of output from R, the
 	     results of an R session, the display of mathematical
