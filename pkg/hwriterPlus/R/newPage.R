@@ -1,3 +1,7 @@
+### Set up new environment for equation list and equation number counter
+.hwriterGlobalEnv <- new.env()
+
+
 newPage <- function(filename, dirname = NULL, title = filename,
                     doctype = "<!DOCTYPE html>\n",
                     link.javascript = NULL, link.css = NULL, css = NULL,
@@ -6,10 +10,12 @@ newPage <- function(filename, dirname = NULL, title = filename,
 {
     ## today <- format(strptime(date(), "%a %b %d %H:%M:%S %Y"), "%B %d, %Y")
 
-    ## Experimental: uses  global assignment which needs fixing
     ## Create equation numbers and list for labels
-    hwriterEquation <<- 0
-    hwriterEquationList <<- character(0)
+    ## Original version used global assignment
+    ## hwriterEquation <<- 0
+    ## hwriterEquationList <<- character(0)
+    assign("hwriterEquation", 0, .hwriterGlobalEnv)
+    assign("hwriterEquationList", character(0), .hwriterGlobalEnv)
 
     if (!is.null(dirname)) {
         if (!file.exists(dirname))

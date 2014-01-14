@@ -4,7 +4,8 @@
 
 eqRef <- function(label){
     eqLabel <- paste("eq:", label, sep = "")
-    eqNum <- which(hwriterEquationList == eqlabel)
+    eqnList <- get("hwriterEquationList", .hwriterGlobalEnv)
+    eqNum <- which(eqnList == eqLabel)
     eqNum
 }
 

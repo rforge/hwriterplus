@@ -174,21 +174,21 @@ This is the result of printing the dataframe<br/>
 <tr>
 <td>1</td><td> 1</td><td>C</td></tr>
 <tr>
-<td>1</td><td> 2</td><td>A</td></tr>
+<td>1</td><td> 2</td><td>B</td></tr>
 <tr>
-<td>1</td><td> 3</td><td>C</td></tr>
+<td>1</td><td> 3</td><td>A</td></tr>
 <tr>
-<td>1</td><td> 4</td><td>B</td></tr>
+<td>1</td><td> 4</td><td>C</td></tr>
 <tr>
 <td>1</td><td> 5</td><td>C</td></tr>
 <tr>
 <td>1</td><td> 6</td><td>B</td></tr>
 <tr>
-<td>1</td><td> 7</td><td>C</td></tr>
+<td>1</td><td> 7</td><td>B</td></tr>
 <tr>
-<td>1</td><td> 8</td><td>A</td></tr>
+<td>1</td><td> 8</td><td>C</td></tr>
 <tr>
-<td>1</td><td> 9</td><td>A</td></tr>
+<td>1</td><td> 9</td><td>B</td></tr>
 <tr>
 <td>1</td><td>10</td><td>B</td></tr>
 </table>
@@ -198,10 +198,10 @@ Here is an example taken from the documentation of
 <font face='monospace'>xtable</font>. It shows the output of an
 ANOVA table.<br/>
 <br/>
-<center><!-- html table generated in R 2.15.0 by xtable 1.7-1 package -->
-<!-- Thu Nov 15 16:36:46 2012 -->
+<center><!-- html table generated in R 3.0.2 by xtable 1.7-3 package -->
+<!-- Wed Jan 15 12:08:29 2014 -->
 <TABLE border=1>
-<TR> <TH>  </TH> <TH> Df </TH> <TH> Sum Sq </TH> <TH> Mean Sq </TH> <TH> F value </TH> <TH> Pr(&gt F) </TH>  </TR>
+<TR> <TH>  </TH> <TH> Df </TH> <TH> Sum Sq </TH> <TH> Mean Sq </TH> <TH> F value </TH> <TH> Pr(&gt;F) </TH>  </TR>
   <TR> <TD> sex </TD> <TD align="right"> 1 </TD> <TD align="right"> 75.37 </TD> <TD align="right"> 75.37 </TD> <TD align="right"> 0.38 </TD> <TD align="right"> 0.5417 </TD> </TR>
   <TR> <TD> ethnicty </TD> <TD align="right"> 3 </TD> <TD align="right"> 2572.15 </TD> <TD align="right"> 857.38 </TD> <TD align="right"> 4.27 </TD> <TD align="right"> 0.0072 </TD> </TR>
   <TR> <TD> grade </TD> <TD align="right"> 1 </TD> <TD align="right"> 36.31 </TD> <TD align="right"> 36.31 </TD> <TD align="right"> 0.18 </TD> <TD align="right"> 0.6717 </TD> </TR>
@@ -213,8 +213,8 @@ Here is an example taken from the documentation of
 <font face='monospace'>table</font>. It shows the output of a
 two-dimensional table.<br/>
 <br/>
-<center><!-- html table generated in R 2.15.0 by xtable 1.7-1 package -->
-<!-- Thu Nov 15 16:36:46 2012 -->
+<center><!-- html table generated in R 3.0.2 by xtable 1.7-3 package -->
+<!-- Wed Jan 15 12:08:29 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Northeast </TH> <TH> South </TH> <TH> North Central </TH> <TH> West </TH>  </TR>
   <TR> <TD align="right"> New England </TD> <TD align="right">   6 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
@@ -260,26 +260,8 @@ This requires writing to a file, and reading the results back
 from the file. A temporary file can used for holding the output.
 See <code>?tempfile</code>.<br/>
 Here is an example.<br/>
-<pre style = 'font-size:10pt'>> clotting <- data.frame(u = c(5, 10, 15, 20, 30, 40, 60, 80, 100), 
-+ lot1 = c(118, 58, 42, 35, 27, 25, 21, 19, 18), lot2 = c(69, 
-+ 
-+ 35, 26, 21, 18, 16, 13, 12, 12))
-> clotting
-    u lot1 lot2
-1   5  118   69
-2  10   58   35
-3  15   42   26
-4  20   35   21
-5  30   27   18
-6  40   25   16
-7  60   21   13
-8  80   19   12
-9 100   18   12
-> coef(glm(lot1 ~ log(u), data = clotting, family = Gamma))
-(Intercept)      log(u) 
--0.01655438  0.01534311 </pre><br/>
 An alternative approach which should not mangle line breaks is provided by the <code>script</code> function written by Ross Ihaka<br/>
-<pre style = 'font-size:10pt'>Script started on Thu Nov 15 16:36:46 2012 
+<pre style = 'font-size:10pt'>Script started on Wed Jan 15 12:08:34 2014 
 > clotting <-
 >     data.frame(
 >                u = c(5,10,15,20,30,40,60,80,100),
@@ -301,7 +283,7 @@ An alternative approach which should not mangle line breaks is provided by the <
 (Intercept)      log(u) 
 -0.01655438  0.01534311 
 > q()
-Script done on Thu Nov 15 16:36:46 2012 </pre><br/>
+Script done on Wed Jan 15 12:08:34 2014 </pre><br/>
 The new function <code>hwriteScript</code> can be used to drop off lines at the beginning and end of the file created by <code>script</code>.<br/>
 <pre style = 'font-size:10pt'>> clotting <-
 >     data.frame(
@@ -344,12 +326,6 @@ how cross-referencing can be implemented.<br/>
 The numbered equation entered previously can be cross-referenced
 using the link argument to <font face = 'monospace'>hwrite</font>.
 That equation is equation 1 at present. Here is the link to the equation: <a href="#eq:equation1">Numbered Equation.</a><br/>
-We can also retrieve the number of a labeled equation.
-For example the numbered equation was the first equation and had the label
-"equation1" which in full is "eq:equation1". We can retrieve the number
-using <code> which(hwriterEquationList == "eq:equation1")</code>
-which produces  1 or more easily using the convenience function <code>eqRef</code>,
-using simply <code>eqRef("equation1")</code>.<br/>
 <br/>
 The graph in SVG format included previously can also be
 cross-referenced since it was assigned an identifier using the
@@ -357,5 +333,5 @@ cross-referenced since it was assigned an identifier using the
 Here is a link to that graph: <a href="#catsSVG">Graph in SVG format.</a><br/>
 <br/>
 
-<br/><br/><font size="-2">(Page generated on Thu Nov 15 16:36:46 2012 by <a href="http://www.embl.de/~gpau/hwriter/index.html">hwriter</a> 1.3)</font><br/>
+<br/><br/><font size="-2">(Page generated on Wed Jan 15 12:08:39 2014 by <a href="http://www.embl.de/~gpau/hwriter/index.html">hwriter</a> 1.3)</font><br/>
 </body></html>

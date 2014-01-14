@@ -27,15 +27,23 @@ hwriteLatex <- function(ltx, page = NULL,
         ## not inline: own living space (will be within a table to center it)
         if (ltx$count) {
             ## update counter hwriterEquation
-            hwriterEquation <<- hwriterEquation + 1
+            ## hwriterEquation <<- hwriterEquation + 1
+            eqnNum <- get("hwriterEquation", .hwriterGlobalEnv)
+            eqnNum <- eqnNum + 1
+            assign("hwriterEquation", eqnNum, .hwriterGlobalEnv)
             ## deal with label
             if (is.null(ltx$label)){
-                hwriterEquationList[hwriterEquation] <<-
-                    paste("eq:", hwriterEquation, sep = "")
+                ## hwriterEquationList[hwriterEquation] <<-
+                ##     paste("eq:", hwriterEquation, sep = "")
+                eqnLabel <- paste("eq:", eqnNum, sep = "")
             } else {
-                hwriterEquationList[hwriterEquation] <<-
-                    paste("eq:", ltx$label, sep = "")
+                ## hwriterEquationList[hwriterEquation] <<-
+                ##     paste("eq:", ltx$label, sep = "")
+                eqnLabel <- paste("eq:", ltx$label, sep = "")
             }
+            eqnList <- get("hwriterEquationList", .hwriterGlobalEnv)
+            eqnList[eqnNum] <- eqnLabel
+            assign("hwriterEquationList", eqnList, .hwriterGlobalEnv)
             ## write out equation as table with equation number
             if (is.null(table.attributes)){
                 table.attributes <- "border = '0' width = '90%'"
@@ -53,8 +61,8 @@ hwriteLatex <- function(ltx, page = NULL,
                       td.attributes[2], ">\\[",
                       ltx$alt, "\\]</td><td ",
                       td.attributes[3], " id = '",
-                      hwriterEquationList[hwriterEquation],
-                      "'>(", hwriterEquation,
+                      eqnLabel,
+                      "'>(", eqnNum,
                       ")</td></tr></table></center><br />",
                       sep = ""),
                 file = page, append = TRUE)

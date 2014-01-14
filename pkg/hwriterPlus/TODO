@@ -3,7 +3,6 @@ Siegrist (2007) recommendations
 
 Change the headers to match what is in Siegrist (2007)
 
-
 Since only name works in Word, not id for creating links, allow
 hwriteImage to have a name argument. Perhaps it doesn't need an id
 argument?
@@ -12,9 +11,5 @@ Also can add other lists for numbering: tables, figures, headings.
 
 Allow figures and tables to have captions??? Equations as well???
 
-Convenience functions: to retrieve an equation number for example:
-eqRef, takes a label and produces the corresponding equation number.
-
 Use write.table to write objects of class table.
 
-Use closures to establish counters for equations, sections etc.
